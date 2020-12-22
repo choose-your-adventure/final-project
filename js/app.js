@@ -2,38 +2,39 @@
 
 // GLOBAL VARIABLES --------
 
-maxScenes = 5;
-actualScenes = 0;
-userName = '';
-allDestinations = [];
-remainingPlaces = [];
-chosenPlaces = [];
+var maxScenes = 5;
+var actualScenes = 0;
+var userName = '';
+var allDestinations = [];
+var remainingPlaces = [];
+var chosenPlaces = [];
 
 // DOM IDS --------
 
-var mainContainer = document.getElementById(''); // where the action happens
-var imageContainer = document.getElementById(''); // for initial image and active destination image
-var descriptionContainer = document.getElementById(''); // for text instructions 
-var eventContainer = document.getElementById(''); // for both forms AND 10 destination thumbnails
+var mainContainer = document.getElementById('maincontainer'); // where the action happens
+var imageContainer = document.getElementById('imagecontainer'); // for initial image and active destination image
+var descriptionContainer = document.getElementById('description'); // for text instructions 
+var eventContainer = document.getElementById('formcontainer'); // for both forms 
+var selectionContainer = document.getElementById('selectioncontainer'); // for 10 destination thumbnails
 
-// CONSTRUCTOR ------
+// CONSTRUCTOR --------
 
-function Adventure(name, image, text, blurb, teaser) {
+function Adventure(name, image, text, teaser) {
   this.name = name;
-  this.image = `img/{$image}`;
-  this.thumbnail = `thumbs/{$image}`;
+  this.image = `img/${image}`;
+  this.thumbnail = `thumbs/${image}`;
   this.text = text;
-  this.blurb = blurb;
+ // this.blurb = blurb;
   this.teaser = teaser;
   allDestinations.push(this);
 }
 
 // DESTINATION INSTANCES -------
 
-new Adventure('Space Needle', 'spaceneedle.jpg', 'Thumbnail about it', 'Blurb about it', 'Click this awesome choice!');
+new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
 
 
-// to neaten up this instantiation we could make the text / blurb/ teasers all variables that get filled by functions.
+// to neaten up this instantiation we could make the text / blurb/ teasers all variables that get filled by functions. (reference Pheasants demo for this)
 
 // GLOBAL FUNCTIONS ----------
 
@@ -47,25 +48,63 @@ new Adventure('Space Needle', 'spaceneedle.jpg', 'Thumbnail about it', 'Blurb ab
 
 // Each destination that is selected gets pushed into chosenPlaces array. These images display as grayed out from other thumbnails. Potentially these images are popped from remainingPlaces
 
-function renderElement(newElement, parentElement, content) {
+function renderElement(newElement, parentElement, obj, content) {
   // this function populates DOM elements so we don't have to write all this out for each one
-  var childElement = document.createElement(newElement);
-  childElement.textContent = content;
-  parentElement.appendChild(newElement);
+  if (newElement === 'img' && content === 'thumbnail') {
+    var childElement = document.createElement(newElement);
+    childElement.src = obj.thumbnail;
+    childElement.title = obj.teaser;
+    childElement.alt = obj.name;
+    parentElement.appendChild(childElement);
+  } else if (newElement === 'img' && content === 'image') { 
+    var childElement = document.createElement(newElement);
+    childElement.src = obj.image;
+    childElement.title = obj.teaser;
+    childElement.alt = obj.name;
+    parentElement.appendChild(childElement);
+  } else {
+    var childElement = document.createElement(newElement);
+    childElement.textContent = obj[content];
+    parentElement.appendChild(childElement);
+  }
 }
 
+renderElement('img', imageContainer, allDestinations[0], 'thumbnail');
+renderElement('img', imageContainer, allDestinations[0], 'image');
+renderElement('p', imageContainer, allDestinations[0], 'text');
+
+function renderThumbnails() {
+
+  //delete previously selected.
+
+//iterate through array each time a new thing gets selected. 
+  // need img source
+  // use the title to find the actual object
+  // in selectionContainer
+
+
+}
 
 function nameInput() {
-  // nameInput() function receives userName form submission, clear away form, and showNextScene() 
+  // nameInput() function receives userName form submission, clear away form, and reverals thumbnails 
 
+}
+
+function beginAdventure() {
+
+ // display thumbnails and starting image and give directions
+ 
 }
 
 function showNextScene() {
-  // showNextScene() function clears away previous image and text and render text and image in appropriate sections in DOM. and presents the choices in thumbnails./updates them if selected.
+  // showNextScene() function clears away previous image (if one previously there) and text and render text and image in appropriate sections in DOM. and presents the choices in thumbnails./updates them if selected.
 
 }
 
 function showAdventure() {
+  // first, run nameInput() to get user name via form.
+  // then, clear away form
+  // then run showNextScene() to play game.
 
 }
 
@@ -76,8 +115,8 @@ function postcardInput() {
 
 
 function revealPostcard() {
-// User is sent to results page revealing the postcard.
-// The user is taken through a total of 5 scenes. 
+  // User is sent to results page revealing the postcard.
+  // The user is taken through a total of 5 scenes. 
   // revealPostcard() function displays thumbnails from chosenPlaces array, username, and postcardinput form text (during the game). Then generates a link to load results.html to see all previous postcards as well, ranked in order of appearance (timestamp?).
 
   // On results page, a DOM p element is created within the postcard with that text. (Max characters on form entry to fit on postcard.)
@@ -96,6 +135,8 @@ function handleClick(event) {
     // selection ends; users is presented with form 
     postcardInput();
   }
+  // pop from available array and push to chosen array
+  showNextScene(allDestinations.name); // find object by using one of its properties (object.title)
 
 }
 
