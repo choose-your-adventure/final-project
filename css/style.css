@@ -1,11 +1,11 @@
-Content is centered horizontally
+/* Content is centered horizontally
 
 Heading logo in custom font face
 
 User can flip adventure image to reveal text onClick
 nav element = full width, right aligned 
 
-Hovering on thumbnail image reveals teaser text and enlarges image.
+Hovering on thumbnail image reveals teaser text and enlarges image. */
 
 
 .container {
@@ -48,3 +48,70 @@ Hovering on thumbnail image reveals teaser text and enlarges image.
   padding: 16px 32px;
 }
 Postcard text style is script
+header {
+  background-color: rgb(98, 124, 150);
+  height: 50px;
+}
+
+header nav {
+  width: 960px;
+  margin: auto;
+}
+
+header span {
+  display: inline-block;
+  line-height: 50px;
+  margin-left: 200px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+}
+
+main {
+  width: 960px;
+  margin: auto;
+}
+
+main h1 {
+  text-align: center;
+  padding: 20px;
+  font-size: 2em;
+  padding-bottom: 40px;
+}
+
+main li:first-child {
+  margin-left: 0px;
+}
+
+main li {
+  margin-left: 50px;
+  float: left;
+  padding-bottom: 25px;
+}
+
+main p {
+  font-size: 1.25em;
+  padding-bottom: 20px;
+}
+
+#formcontainer {
+  margin-left: 75px;
+  margin-right: 75px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  border: 1px solid black;
+  line-height: 40px;
+}
+
+fieldset label {
+  display: block;
+}
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+  background-color: rgb(210, 212, 214);
+}
