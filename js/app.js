@@ -11,24 +11,31 @@ chosenPlaces = [];
 
 // DOM IDS --------
 
+var mainContainer = document.getElementById(''); // where the action happens
+var imageContainer = document.getElementById(''); // for initial image and active destination image
+var descriptionContainer = document.getElementById(''); // for text instructions 
+var eventContainer = document.getElementById(''); // for both forms AND 10 destination thumbnails
 
 // CONSTRUCTOR ------
 
-function Adventure(name, image, thumbnail, text, blurb, teaser) {
+function Adventure(name, image, text, blurb, teaser) {
   this.name = name;
-  this.image = image;
-  this.thumbnail = thumbnail;
+  this.image = `img/{$image}`;
+  this.thumbnail = `thumbs/{$image}`;
   this.text = text;
   this.blurb = blurb;
   this.teaser = teaser;
   allDestinations.push(this);
 }
 
+// DESTINATION INSTANCES -------
+
+new Adventure('Space Needle', 'spaceneedle.jpg', 'Thumbnail about it', 'Blurb about it', 'Click this awesome choice!');
 
 
+// to neaten up this instantiation we could make the text / blurb/ teasers all variables that get filled by functions.
 
 // GLOBAL FUNCTIONS ----------
-
 
 // userName stores user form entry. After game completion, userName, postcard text and 5 destination choices are stored to localstorage.
 
@@ -40,17 +47,21 @@ function Adventure(name, image, thumbnail, text, blurb, teaser) {
 
 // Each destination that is selected gets pushed into chosenPlaces array. These images display as grayed out from other thumbnails. Potentially these images are popped from remainingPlaces
 
+function renderElement(newElement, parentElement, content) {
+  // this function populates DOM elements so we don't have to write all this out for each one
+  var childElement = document.createElement(newElement);
+  childElement.textContent = content;
+  parentElement.appendChild(newElement);
+}
 
 
 function nameInput() {
-// nameInput() function receives userName form submission, clear away form, and showNextScene() 
+  // nameInput() function receives userName form submission, clear away form, and showNextScene() 
 
 }
 
 function showNextScene() {
-// showNextScene() function clears away previous image and text and render text and image in appropriate sections in DOM. and presents the choices in thumbnails./updates them if selected.
-
-
+  // showNextScene() function clears away previous image and text and render text and image in appropriate sections in DOM. and presents the choices in thumbnails./updates them if selected.
 
 }
 
@@ -58,30 +69,33 @@ function showAdventure() {
 
 }
 
-
-
-
 function postcardInput() {
-// postcardInput() reveals a text input form. Upon submission, runs revealPostcard()
+  // postcardInput() reveals a text input form. Upon submission, runs revealPostcard()
 
 }
+
 
 function revealPostcard() {
-// revealPostcard() function displays thumbnails from chosenPlaces array, username, and postcardinput form text (during the game). Then generates a link to load results.html to see all previous postcards as well, ranked in order of appearance (timestamp?).
+// User is sent to results page revealing the postcard.
+// The user is taken through a total of 5 scenes. 
+  // revealPostcard() function displays thumbnails from chosenPlaces array, username, and postcardinput form text (during the game). Then generates a link to load results.html to see all previous postcards as well, ranked in order of appearance (timestamp?).
 
-// On results page, a DOM p element is created within the postcard with that text. (Max characters on form entry to fit on postcard.)
+  // On results page, a DOM p element is created within the postcard with that text. (Max characters on form entry to fit on postcard.)
 
 }
-
 
 // EVENT HANDLERS ----------
 
-// Event listener: user clicks thumbnail to choose next destination.
-// actualScenes++
-
-// The user is taken through a total of 5 scenes. When 5 is reached, game ends. User is sent to results page revealing the postcard.
 
 function handleClick(event) {
+  actualScenes++;
+
+  // user has clicked thumbnail to choose next destination.
+
+  if (actualScenes === maxScenes) {
+    // selection ends; users is presented with form 
+    postcardInput();
+  }
 
 }
 
