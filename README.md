@@ -1,8 +1,17 @@
 # Mementoize Your Virtual Seattle Adventure
 
-User designs a custom postcard as a virtual gift for someone who is unable to do the tour in person.
+User designs a custom postcard as a virtual gift for someone who is unable to do the tour in person, or for themselves.
 
-## Wireframe
+## Team
+
+- Carly Dekock
+- Clement Buchanan
+- Mikey Russell
+- Stephen Webber
+
+### Link to project management board [here](https://trello.com/b/bJfWkqyZ/choose-your-adventure)
+
+## Wireframes
 
 - [Wireframe - Home Page](prep-images/wireframe-home.jpeg)
 - [Wireframe - Game Page](prep-images/wireframe-game.jpeg)
@@ -11,7 +20,7 @@ User designs a custom postcard as a virtual gift for someone who is unable to do
 
 ## Domain Model - More Info
 
-User designs a custom postcard as a virtual gift for someone who is unable to do the tour in person.
+User arrives at home page which includes info about the game, form for user name input and opportunity to play the game. Game renders to the home page once play game has been clicked. Ten different destination images are rendered to the page, as options for the user to select which destination they'd like to go to first. As a user selects a destination, it grays out and is no longer an option, leaving the remaining destination clickable to go to next. Each destination provides a picture and info about the landmark or unique place in Seattle. Once a user has visited five destinations, they are given the opportunity to view their postcard with thumbnail images of the places visited on their virtual tour. 
 ​
 ### Scope
 
@@ -32,13 +41,6 @@ Postcard Elements
 Populate images from localstorage based on journey taken.
 ​User input: What would you like to say on your postcard (then fill in script face).
 
-## Requirements
+## Requirements and Details
 
 [REQUIREMENTS.md](REQUIREMENTS.md)
-
-## Team
-
-- Carly Dekock
-- Clement Buchanan
-- Mikey Russell
-- Stephen Webber
