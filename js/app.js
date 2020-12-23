@@ -6,7 +6,7 @@ var maxScenes = 5;
 var actualScenes = 0;
 var userName = '';
 var allDestinations = [];
-var remainingPlaces = [];
+var remainingPlaces = []; //This array is used to populate the thumnails of remaining choices
 var chosenPlaces = [];
 
 // DOM IDS --------
@@ -32,6 +32,10 @@ function Adventure(name, image, text, teaser) {
 // DESTINATION INSTANCES -------
 
 new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
+new Adventure('Seattle Sunset', 'seattle-sunset.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
+new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
+new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
+new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
 
 
 // to neaten up this instantiation we could make the text / blurb/ teasers all variables that get filled by functions. (reference Pheasants demo for this)
@@ -48,14 +52,16 @@ new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about i
 
 // Each destination that is selected gets pushed into chosenPlaces array. These images display as grayed out from other thumbnails. Potentially these images are popped from remainingPlaces
 
-function renderElement(newElement, parentElement, obj, content) {
+function renderElement(newElement, parentElement, obj, content, index) {
   // this function populates DOM elements so we don't have to write all this out for each one
   if (newElement === 'img' && content === 'thumbnail') {
     var childElement = document.createElement(newElement);
     childElement.src = obj.thumbnail;
     childElement.title = obj.teaser;
     childElement.alt = obj.name;
+    childElement.setAttribute('id', index);
     parentElement.appendChild(childElement);
+    childElement.addEventListener('click', handleClick);
   } else if (newElement === 'img' && content === 'image') { 
     var childElement = document.createElement(newElement);
     childElement.src = obj.image;
@@ -69,21 +75,34 @@ function renderElement(newElement, parentElement, obj, content) {
   }
 }
 
+populateDestinations();
 renderElement('img', imageContainer, allDestinations[0], 'thumbnail');
 renderElement('img', imageContainer, allDestinations[0], 'image');
 renderElement('p', imageContainer, allDestinations[0], 'text');
 
+
 function renderThumbnails() {
-
   //delete previously selected.
-
+  selectionContainer.innerHTML = '';
 //iterate through array each time a new thing gets selected. 
   // need img source
   // use the title to find the actual object
   // in selectionContainer
-
-
+  for (var i = 0; i < remainingPlaces.length; i++) {
+    renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i);
+  }
 }
+
+renderThumbnails();
+
+function populateDestinations() {
+  for (var i = 0; i < allDestinations.length; i++) {
+    remainingPlaces[i] = allDestinations[i];
+  }
+}
+
+
+
 
 function nameInput() {
   // nameInput() function receives userName form submission, clear away form, and reverals thumbnails 
@@ -125,9 +144,18 @@ function revealPostcard() {
 
 // EVENT HANDLERS ----------
 
-
+//Event handler seems to be not connected to the section of images, does not pick up individual image click
 function handleClick(event) {
   actualScenes++;
+  var clickedDestination = event.target.alt;
+  var popIndex = null;
+  for (var i = 0; i < remainingPlaces.length; i++) {
+    if (clickedDestination === remainingPlaces[i].name) {
+      popIndex = i;
+    }
+  }
+  var pickedPlace = remainingPlaces.splice(popIndex, 1);
+  chosenPlaces.push(pickedPlace);
 
   // user has clicked thumbnail to choose next destination.
 
@@ -136,9 +164,9 @@ function handleClick(event) {
     postcardInput();
   }
   // pop from available array and push to chosen array
-  showNextScene(allDestinations.name); // find object by using one of its properties (object.title)
-
+  // showNextScene(allDestinations.name); // find object by using one of its properties (object.title)
+  renderThumbnails();
 }
 
 showAdventure();
-mainContainer.addEventListener('click', handleClick);
+// selectionContainer.addEventListener('click', handleClick);
