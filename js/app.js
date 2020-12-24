@@ -9,7 +9,7 @@ var remainingPlaces = []; //This array is used to populate the thumnails of rema
 var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
-var previousMessagePool = [`Wow! Changed my life. I'll never forget this trip.`, `Thinking of you. . .`, `With love from Seattle!`, `Did you realize there are over 100 words for fog in Seattle?`, `I can't wait to get back to Seattle someday.`, `I got hit in the face by a fish but it's all good!`, `It's cold and dark and I want to come home.`];
+var previousMessagePool = ['Wow! Changed my life. I\'ll never forget this trip.', 'Thinking of you. . .', 'With love from Seattle!', 'Did you realize there are over 100 words for fog in Seattle?', 'I can\'t wait to get back to Seattle someday.', 'I got hit in the face by a fish but it\'s all good!', 'It\'s cold and dark and I want to come home.'];
 var previousSenderPool = ['Stephen', 'Carly', 'Clement', 'Mikey', 'Herman Melville'];
 var previousCards = [];
 
@@ -18,8 +18,8 @@ var selectionContainer = document.getElementById('selectioncontainer'); // for 1
 var headerContainer = document.getElementById('headercontainer'); // for active image name
 var instructionsContainer = document.getElementById('instructionscontainer');
 var imageContainer = document.getElementById('imagecontainer'); // for initial image and active destination image
-var descriptionContainer = document.getElementById('description'); // for text instructions 
-var eventContainer = document.getElementById('eventcontainer'); // for both forms 
+var descriptionContainer = document.getElementById('description'); // for text instructions
+var eventContainer = document.getElementById('eventcontainer'); // for both forms
 var finalForm = document.getElementById('finalform'); //for postcard text entry
 
 function Adventure(name, image, text, teaser) {
@@ -52,7 +52,7 @@ new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about WHE
 new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE', 'Click this awesome choice!');
 new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Click THIS awesome choice!');
 
-new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', `If you choose to play, you'll be led on a virtual adventure around the city, to see whichever sights you'd like to see. You'll learn fun facts and trivia about each location along the way. At the end, you'll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!`);
+new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!');
 new Instructions('Game play instructions', 'space-needle.png', 'you are having fun right now because you are playing this game');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.png', 'Here is where you enter your awesome message');
 
@@ -71,7 +71,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
     childElement.setAttribute('id', index);
     parentElement.appendChild(childElement);
     childElement.addEventListener('click', thumbClick);
-  } else if (newElement === 'img' && content === 'image') {  // for large images
+  } else if (newElement === 'img' && content === 'image') {// for large images
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.image;
@@ -81,14 +81,14 @@ function renderElement(newElement, parentElement, obj, content, index) {
     childElement.addEventListener('click', flipBigImage);
   } else {
     parentElement.innerHTML = '';
-    var childElement = document.createElement(newElement);  // for text 
+    var childElement = document.createElement(newElement);// for text
     childElement.textContent = obj[content];
     parentElement.appendChild(childElement);
   }
 }
 
 function beginAdventure() {
-  finalForm.setAttribute("style", "display:none;"); // hide final button
+  finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
   renderElement('h2', headerContainer, allInstructions[0], 'name');
   renderElement('img', imageContainer, allInstructions[0], 'image');
@@ -156,31 +156,41 @@ function flipBigImage(event) {
 
 function postcardInput() {
   selectionContainer.innerHTML = '';
-  eventContainer.innerHTML = `Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it's time to write your custom message. What would you like your postcard to say?`;
+  eventContainer.innerHTML = 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?';
   renderElement('h2', headerContainer, allInstructions[2], 'name');
   renderElement('img', imageContainer, allInstructions[2], 'image');
   renderElement('p', descriptionContainer, allInstructions[2], 'text');
-  finalForm.setAttribute("style", "display:initial;");
-  // Check form input validity
-  // from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
-  var messageInput = document.getElementById('postcardinput');
-  var form = document.getElementById('postcardform');
-  messageInput.addEventListener('input', () => {
-    messageInput.setCustomValidity('');
-    messageInput.checkValidity();
-  });
-  messageInput.addEventListener('invalid', () => {
-    if (messageInput.value === '') {
-      messageInput.setCustomValidity('Please enter your name');
-    } else {
-      messageInput.setCustomValidity('Usernames can only contain upper and lowercase letters. Try again!');
-    }
-  });
-  // ------
-  document.addEventListener('submit', preparePostcard);
+  finalForm.setAttribute('style', 'display:initial;');
+  // // Check form input validity
+  // // from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input 
+  // var messageInput = document.getElementById('postcardinput');
+  // console.log(messageInput);
+  // var form = document.getElementById('postcardform');
+  // // messageInput.addEventListener('input', () => {
+  // //   messageInput.setCustomValidity('');
+  // //   messageInput.checkValidity();
+  // // });
+  // // messageInput.addEventListener('invalid', () => {
+  // //   if (messageInput.value === '') {
+  // //     messageInput.setCustomValidity('Please enter your name');
+  // //   } else {
+  // //     messageInput.setCustomValidity('Usernames can only contain upper and lowercase letters. Try again!');
+  // //   }
+  // // });
+  // // ------
+  finalForm.addEventListener('submit', postcardPull); //This was preparePostcard - switched to postcardPull to have an event listener on the finalform to be able to pull the text input
 }
 
-function preparePostcard(event) {
+function postcardPull(event) {
+  event.preventDefault();
+  var inputString = event.target.postcardinput.value;
+  //This is now picking up the string that is input, so we have that value to work with
+  console.log(inputString);
+  preparePostcard();
+}
+
+//This is now no longer an event with the addition of the postcardPull function above, so we need some re-working here
+function preparePostcard() {
   event.preventDefault();
   postcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
@@ -198,23 +208,22 @@ function revealPostcard() {
   //   childElement.alt = chosenPlaces[i][0].name;
   //   childElement.setAttribute('id', i);
   //   eventContainer.appendChild(childElement);
-
   var viewAll = document.createElement('a');
-  viewAll.setAttribute("style", "text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;")
-  var resultsPage = document.createTextNode('View All Postcards')
+  viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
   viewAll.title = 'Click Here to see all previous postcards from fellow travelers';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
-  showAllPostcards();
+  // showAllPostcards();
 }
 
-function showAllPostcards() {
-  var postContainer = document.getElementById('allcards');
-  for (var i=0; i < previousCards.length; i++) {
-    renderElement('img', postContainer, previousCards[i], 'thumbnail');
-  }
+// function showAllPostcards() {
+//   var postContainer = document.getElementById('allcards');
+//   for (var i=0; i < previousCards.length; i++) {
+//     renderElement('img', postContainer, previousCards[i], 'thumbnail');
+//   }
 
-}
+// }
 
 beginAdventure();
