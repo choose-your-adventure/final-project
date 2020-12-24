@@ -47,10 +47,23 @@ footer -->
         <fieldset>
           <legend>Please let us know your name:</legend>
           <!-- Ask for username -->
-          <label>Name:
-            <input type="username" name="username" id="username">
+          <label for="username">Name:
+            <input type="text" name="username" id="username" required>
           </label>
+          <span class="validity"></span>
           <button type="submit">Play Game!</button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="finalform">
+      <form id="postcardtext">
+        <fieldset>
+          <legend>Enter the special message you'd like to put on your postcard:</legend>
+          <label for="postcard">Message:
+            <input type="text" name="postcard" id="postcard" maxlength="300" required>
+          </label>
+          <span class="validity"></span>
+          <button type="submit">Create Your Postcard!</button>
         </fieldset>
       </form>
     </section>

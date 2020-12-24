@@ -18,6 +18,7 @@ var instructionsContainer = document.getElementById('instructionscontainer');
 var imageContainer = document.getElementById('imagecontainer'); // for initial image and active destination image
 var descriptionContainer = document.getElementById('description'); // for text instructions 
 var eventContainer = document.getElementById('eventcontainer'); // for both forms 
+var finalForm = document.getElementById('finalform'); //for postcard text entry
 
 // CONSTRUCTORS --------
 function Adventure(name, image, text, teaser) {
@@ -47,6 +48,7 @@ new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATER
 // for landing page, how to play page, and pre-postcard page
 
 new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', `If you choose to play, you'll be led on a virtual adventure around the city, to see whichever sights you'd like to see. You'll learn fun facts and trivia about each location along the way. At the end, you'll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!`)
+new Instructions('Game play instructions', 'space-needle.png', 'you are having fun right now because you are playing this game')
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.png', 'Click the button to see your memento')
 
 // to neaten up this instantiation we could make the text / blurb/ teasers all variables that get filled by functions. (reference Pheasants demo for this)
@@ -60,7 +62,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
     childElement.alt = obj.name;
     childElement.setAttribute('id', index);
     parentElement.appendChild(childElement);
-    childElement.addEventListener('click', handleClick);
+    childElement.addEventListener('click', thumbClick);
   } else if (newElement === 'img' && content === 'image') {  // for large images
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
@@ -68,18 +70,12 @@ function renderElement(newElement, parentElement, obj, content, index) {
     childElement.title = obj.teaser;
     childElement.alt = obj.name;
     parentElement.appendChild(childElement);
+    childElement.addEventListener('click', flipBigImage);
   } else {
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);  // for text 
     childElement.textContent = obj[content];
     parentElement.appendChild(childElement);
-  }
-}
-
-function renderThumbnails() {
-  selectionContainer.innerHTML = '';
-  for (var i = 0; i < remainingPlaces.length; i++) {
-    renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i);
   }
 }
 
@@ -89,59 +85,39 @@ function populateDestinations() { // preserves original list of destinations and
   }
 }
 
-function nameInput() {
-  // userName stores user form entry. After game completion, userName, postcard text and 5 destination choices are stored to localstorage.
-
-  // nameInput() function receives userName form submission, clear away form, and reverals thumbnails 
-
-  userName = document.getElementById("username");
-  localStorage.setItem("username", userName.value);
-  console.log(userName.value);
-}
-
 function beginAdventure() {
-  //  run nameInput() to get user name via form.
-  //  clear away form
-  // then run showNextScene() to play game.
-  nameInput();
-  populateDestinations();
+  finalForm.setAttribute("style", "display:none;") // hide final button
   // display starting image and give directions
   renderElement('h2', headerContainer, allInstructions[0], 'name');
   renderElement('img', imageContainer, allInstructions[0], 'image');
   renderElement('p', descriptionContainer, allInstructions[0], 'text');
+  eventContainer.addEventListener('submit', inputName);
+}
+
+function inputName(event) {
+  event.preventDefault();
+  userName = event.target.username.value;
+  localStorage.setItem('username', userName);
+  eventContainer.innerHTML = '';
+  enterGame();
+}
+
+function enterGame() {
+  populateDestinations();
+  renderElement('h2', headerContainer, allInstructions[1], 'name');
+  renderElement('img', imageContainer, allInstructions[1], 'image');
+  renderElement('p', descriptionContainer, allInstructions[1], 'text');
   renderThumbnails();
 }
 
-function showNextScene() {
-  renderElement('h2', headerContainer, pickedPlace[0], 'name');
-  renderElement('img', imageContainer, pickedPlace[0], 'image');
-  renderElement('p', descriptionContainer, pickedPlace[0], 'text');
-}
-
-function postcardInput() {
-  eventContainer.innerHTML = 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard.';
-  // generate a user input form for the text they'd like to put on the postcard
-  var postcardButton = document.createElement('button');
-  eventContainer.appendChild(postcardButton);
-  postcardButton.textContent = 'Click Here for Your Custom Postcard';
-  postcardButton.addEventListener('click', revealPostcard);
-}
-
-function fillContainerWithSelectedImages() { //not sure why this doesn't grab the image thumbnails
-  for (var i = 0; i < chosenPlaces.length; i++) {
-    renderElement('img', eventContainer, chosenPlaces[i], 'thumbnail', i);
+function renderThumbnails() {
+  selectionContainer.innerHTML = '';
+  for (var i = 0; i < remainingPlaces.length; i++) {
+    renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i);
   }
 }
 
-function revealPostcard() {
-  // User is sent to results page revealing the postcard.
-  // revealPostcard() function displays thumbnails from chosenPlaces array, username, and postcardinput form text (during the game). Then generates a link to load postcard.html to see all previous postcards as well, ranked in order of appearance (plus a timestamp/how long it took?).
-  // On results page, a DOM p element is created within the postcard with that text. (limit Max characters on form entry to fit on postcard.)
-}
-
-// EVENT HANDLERS ----------
-
-function handleClick(event) {   // user has clicked thumbnail to choose next destination.
+function thumbClick(event) {   // user has clicked thumbnail to choose next destination.
   actualScenes++;
   var clickedDestination = event.target.alt;
   var popIndex = null;
@@ -158,6 +134,43 @@ function handleClick(event) {   // user has clicked thumbnail to choose next des
   }
   renderThumbnails();
   showNextScene();
+}
+
+function showNextScene() {
+  renderElement('h2', headerContainer, pickedPlace[0], 'name');
+  renderElement('img', imageContainer, pickedPlace[0], 'image');
+  renderElement('p', descriptionContainer, pickedPlace[0], 'text');
+}
+
+function flipBigImage(event) {
+  // flip image to show trivia about location
+  // imageContainer.setAttribute("style", ""); // reveal its .blurb attribute
+}
+
+function postcardInput() {
+  eventContainer.innerHTML = 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard.';
+  // generate a user input form for the text they'd like to put on the postcard
+  finalForm.setAttribute("style", "display:initial;") // make this button also a link to load new page.
+  // var postcardButton = document.createElement('a');
+  // postcardButton.setAttribute("style", "text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;")
+  // var nextPage = document.createTextNode('View Postcard')
+  // postcardButton.appendChild(nextPage);
+  // postcardButton.title = 'Click Here for Your Custom Postcard';
+  // postcardButton.href = 'postcard.html';
+  // eventContainer.appendChild(postcardButton);
+}
+
+function fillContainerWithSelectedImages() { //not sure why this doesn't grab the image thumbnails. the idea is to have the complete list populate. 
+  for (var i = 0; i < chosenPlaces.length; i++) {
+    renderElement('img', eventContainer, chosenPlaces[i], 'thumbnail', i);
+  }
+}
+
+function revealPostcard() {
+  // User is sent to results page revealing the postcard.
+  // revealPostcard() function displays thumbnails from chosenPlaces array, username, and postcardinput form text (during the game). Then generates a link to load postcard.html to see all previous postcards as well, ranked in order of appearance (plus a timestamp/how long it took?).
+  // On results page, a DOM p element is created within the postcard with that text. (limit Max characters on form entry to fit on postcard.)
+
 }
 
 beginAdventure();
