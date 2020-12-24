@@ -48,19 +48,18 @@ footer -->
           <legend>Please let us know your name:</legend>
           <!-- Ask for username -->
           <label for="username">Name:
-            <input type="text" name="username" id="username" required>
+            <input type="text" name="username" id="username" pattern="[A-Za-z]+" required>
           </label>
-          <span class="validity"></span>
           <button type="submit">Play Game!</button>
         </fieldset>
       </form>
     </section>
     <section id="finalform">
-      <form id="postcardtext">
+      <form id="postcardform">
         <fieldset>
           <legend>Enter the special message you'd like to put on your postcard:</legend>
-          <label for="postcard">Message:
-            <input type="text" name="postcard" id="postcard" maxlength="300" required>
+          <label for="postcardinput">Message:
+            <input type="text" name="postcardinput" id="postcardinput" maxlength="300" required>
           </label>
           <span class="validity"></span>
           <button type="submit">Create Your Postcard!</button>
@@ -75,3 +74,24 @@ footer -->
   <script src="js/app.js"></script>
 </body>
 </html>
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#Validation -->
+<!--ADD THIS TO STYLE.CSS for validity styling:
+  div {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+input + span {
+  padding-right: 30px;
+}
+
+input:invalid+span:after {
+  position: absolute; content: '✖';
+  padding-left: 5px;
+}
+
+input:valid+span:after {
+  position: absolute;
+  content: '✓';
+  padding-left: 5px;
+} -->
