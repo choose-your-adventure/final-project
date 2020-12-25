@@ -9,6 +9,9 @@ var remainingPlaces = []; //This array is used to populate the thumnails of rema
 var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
+var storedPostcardMessage = '';
+var storedPostcardMessage = [];
+var storedUserName = '';
 var previousMessagePool = ['Wow! Changed my life. I\'ll never forget this trip.', 'Thinking of you. . .', 'With love from Seattle!', 'Did you realize there are over 100 words for fog in Seattle?', 'I can\'t wait to get back to Seattle someday.', 'I got hit in the face by a fish but it\'s all good!', 'It\'s cold and dark and I want to come home.'];
 var previousSenderPool = ['Stephen', 'Carly', 'Clement', 'Mikey', 'Herman Melville'];
 var previousCards = [];
@@ -137,6 +140,8 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     renderThumbnails();
     showNextScene();
   } else {
+    var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    localStorage.setItem('chosenimages', stringifiedPlaces);
     postcardInput();
   }
 }
@@ -161,45 +166,27 @@ function postcardInput() {
   renderElement('img', imageContainer, allInstructions[2], 'image');
   renderElement('p', descriptionContainer, allInstructions[2], 'text');
   finalForm.setAttribute('style', 'display:initial;');
-  // // Check form input validity
-  // // from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input 
-  // var messageInput = document.getElementById('postcardinput');
-  // console.log(messageInput);
-  // var form = document.getElementById('postcardform');
-  // // messageInput.addEventListener('input', () => {
-  // //   messageInput.setCustomValidity('');
-  // //   messageInput.checkValidity();
-  // // });
-  // // messageInput.addEventListener('invalid', () => {
-  // //   if (messageInput.value === '') {
-  // //     messageInput.setCustomValidity('Please enter your name');
-  // //   } else {
-  // //     messageInput.setCustomValidity('Usernames can only contain upper and lowercase letters. Try again!');
-  // //   }
-  // // });
-  // // ------
-  finalForm.addEventListener('submit', postcardPull); //This was preparePostcard - switched to postcardPull to have an event listener on the finalform to be able to pull the text input
+  finalForm.addEventListener('submit', postcardPull);
 }
 
 function postcardPull(event) {
   event.preventDefault();
-  var inputString = event.target.postcardinput.value;
-  //This is now picking up the string that is input, so we have that value to work with
-  console.log(inputString);
-  preparePostcard();
-}
-
-//This is now no longer an event with the addition of the postcardPull function above, so we need some re-working here
-function preparePostcard() {
-  event.preventDefault();
-  postcardMessage = event.target.postcardinput.value;
+  var postcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
-  eventContainer.innerHTML = '';
-  //save chosenPlaces array to localstorage so that it can be accessed from results.html
   revealPostcard();
 }
 
 function revealPostcard() {
+  eventContainer.innerHTML = '';
+  var retrievedMessage = localStorage.getItem('postcardmessage');
+  var retrievedImages = localStorage.getItem('chosenimages');
+  storedPostcardMessage = JSON.parse(retrievedMessage);
+  storedPostcardImages = JSON.parse(retrievedImages);
+  var retrievedName = localStorage.getItem('username');
+  storedUserName = JSON.parse(retrievedName);
+
+
+
   // renders the postcard. (plus a timestamp?).
   // for (var i = 0; i < chosenPlaces.length; i++) {
   //   var childElement = document.createElement('img');
