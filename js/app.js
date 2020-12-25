@@ -9,12 +9,7 @@ var remainingPlaces = []; //This array is used to populate the thumnails of rema
 var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
-var storedPostcardMessage = '';
-var storedPostcardMessage = [];
-var storedUserName = '';
-var previousMessagePool = ['Wow! Changed my life. I\'ll never forget this trip.', 'Thinking of you. . .', 'With love from Seattle!', 'Did you realize there are over 100 words for fog in Seattle?', 'I can\'t wait to get back to Seattle someday.', 'I got hit in the face by a fish but it\'s all good!', 'It\'s cold and dark and I want to come home.'];
-var previousSenderPool = ['Stephen', 'Carly', 'Clement', 'Mikey', 'Herman Melville'];
-var previousCards = [];
+var storedUserName = localStorage.getItem('username');
 
 var mainContainer = document.getElementById('maincontainer'); // where the action happens
 var selectionContainer = document.getElementById('selectioncontainer'); // for 10 destination thumbnails
@@ -42,12 +37,6 @@ function Instructions(name, image, text) {
   allInstructions.push(this);
 }
 
-function Postcard(i) {
-  this.message = Math.floor(Math.random() * Math.floor(previousMessagePool.length));
-  this.thumbnail = Math.floor(Math.random() * Math.floor(allDestinations.length));
-  this.name = Math.floor(Math.random() * Math.floor(previousSenderPool.length));
-  previousCards.push(this);
-} // stretch goal: to ensure non-duplicates with these randoms
 
 new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
 new Adventure('Seattle Sunset', 'seattle-sunset.png', 'Long Descriptive Text about SEATTLE', 'Click this awesome choice!');
@@ -58,12 +47,8 @@ new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATER
 new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!');
 new Instructions('Game play instructions', 'space-needle.png', 'you are having fun right now because you are playing this game');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.png', 'Here is where you enter your awesome message');
-
-new Postcard();
-new Postcard();
-new Postcard();
-new Postcard();
-new Postcard(); // to ensure non-duplicates, probably iterate through each of these in a loop.. or just linearly iterate through so that they are the same each time but that's not as fun.
+new Instructions('Check it out!', 'starting-image.png', 'A virtual memento from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
+new Instructions('Welcome back!', 'starting-image.png', 'If you\'d like to play again, please enter your desired username for this journey.');
 
 function renderElement(newElement, parentElement, obj, content, index) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
@@ -136,12 +121,12 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
+    var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', eventContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
   } else {
-    var stringifiedPlaces = JSON.stringify(chosenPlaces);
-    localStorage.setItem('chosenimages', stringifiedPlaces);
     postcardInput();
   }
 }
@@ -173,28 +158,28 @@ function postcardPull(event) {
   event.preventDefault();
   var postcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
+  finalForm.setAttribute('style', 'display:none;');
   revealPostcard();
 }
 
 function revealPostcard() {
   eventContainer.innerHTML = '';
-  var retrievedMessage = localStorage.getItem('postcardmessage');
-  var retrievedImages = localStorage.getItem('chosenimages');
-  storedPostcardMessage = JSON.parse(retrievedMessage);
-  storedPostcardImages = JSON.parse(retrievedImages);
-  var retrievedName = localStorage.getItem('username');
-  storedUserName = JSON.parse(retrievedName);
-
-
-
-  // renders the postcard. (plus a timestamp?).
-  // for (var i = 0; i < chosenPlaces.length; i++) {
-  //   var childElement = document.createElement('img');
-  //   childElement.src = chosenPlaces[i][0].thumbnail;
-  //   childElement.title = chosenPlaces[i][0].teaser;
-  //   childElement.alt = chosenPlaces[i][0].name;
-  //   childElement.setAttribute('id', i);
-  //   eventContainer.appendChild(childElement);
+  imageContainer.innerHTML = '';
+  renderElement('h2', headerContainer, allInstructions[3], 'name');
+  renderElement('p', descriptionContainer, allInstructions[3], 'text');
+  var cardTextEl = document.createElement('p');
+  cardTextEl.textContent = postcardMessage;
+  cardTextEl.setAttribute('id', 'postcardmessage');
+  imageContainer.appendChild(cardTextEl);
+  var cardFromEl = document.createElement('p');
+  cardFromEl.textContent = '--- ' + userName;
+  cardFromEl.setAttribute('id', 'postcardusername'); // for CSS styling
+  imageContainer.appendChild(cardFromEl);
+  for (var i = 0; i < chosenPlaces.length; i++) {
+    var childElement = document.createElement('img');
+    childElement.src = chosenPlaces[i][0].thumbnail; // renders an array of 4 items. need to check flow control for why this happens.
+    imageContainer.appendChild(childElement);
+  }
   var viewAll = document.createElement('a');
   viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   var resultsPage = document.createTextNode('View All Postcards');
@@ -202,15 +187,15 @@ function revealPostcard() {
   viewAll.title = 'Click Here to see all previous postcards from fellow travelers';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
-  // showAllPostcards();
+};
+
+if (storedUserName) {
+  finalForm.setAttribute('style', 'display:none;'); // hide final button
+  // display starting image and give directions
+  renderElement('h2', headerContainer, allInstructions[4], 'name');
+  renderElement('img', imageContainer, allInstructions[4], 'image');
+  renderElement('p', descriptionContainer, allInstructions[4], 'text');
+  eventContainer.addEventListener('submit', inputName);
+} else {
+  beginAdventure();
 }
-
-// function showAllPostcards() {
-//   var postContainer = document.getElementById('allcards');
-//   for (var i=0; i < previousCards.length; i++) {
-//     renderElement('img', postContainer, previousCards[i], 'thumbnail');
-//   }
-
-// }
-
-beginAdventure();
