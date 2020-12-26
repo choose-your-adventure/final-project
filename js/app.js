@@ -58,6 +58,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
     childElement.title = obj.teaser;
     childElement.alt = obj.name;
     childElement.setAttribute('id', index);
+    childElement.setAttribute('class', 'flip-card');
     parentElement.appendChild(childElement);
     childElement.addEventListener('click', thumbClick);
   } else if (newElement === 'img' && content === 'image') {// for large images

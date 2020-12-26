@@ -93,14 +93,14 @@ main h1 {
   padding-bottom: 40px;
 }
 
-main li:first-child {
-  margin-left: 0px;
+#selectioncontainer {
+  /* margin-left: 0px; */
+  margin-left: auto;
+  padding-bottom: 25px;
 }
 
-main li {
-  margin-left: 50px;
-  float: left;
-  padding-bottom: 25px;
+#headercontainer {
+  display: block;
 }
 
 main p {
@@ -108,7 +108,7 @@ main p {
   padding-bottom: 20px;
 }
 
-#formcontainer {
+#eventcontainer {
   margin-left: 75px;
   margin-right: 75px;
   padding-top: 20px;
@@ -163,7 +163,6 @@ html {
   transform: scale(1.0);
 }
 
-
 h2 {
   font-size: 1em;
 }
@@ -182,7 +181,9 @@ h2 {
 
 .team-h2 {
   font-size: 2em;
+  padding: 15px;
 }
+
 h2 {
   font-size: 1.3em;
 }
