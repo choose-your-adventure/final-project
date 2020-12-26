@@ -44,3 +44,7 @@ Populate images from localstorage based on journey taken.
 ## Requirements and Details
 
 [REQUIREMENTS.md](REQUIREMENTS.md)
+
+## References
+
+Consulted [StackOverflow](https://stackoverflow.com/questions/17087636/how-to-save-data-from-a-form-with-html5-local-storage) for additional specifics on implementing localStorage with HTML input forms.

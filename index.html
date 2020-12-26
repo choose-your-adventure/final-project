@@ -16,26 +16,82 @@ footer -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
-  <title>Mementoize Your Virtual Seattle Adventure</title>
+  <title>Your Virtual Seattle Adventure</title>
   <span>
     
   </span>
 </head>
-<section>
-  <h1>Choose Your Seattle Adventure</h1>
-</section>
 <body>
   <header>
-
+    <nav>
+      <span><a href="#">Home Page</a></span>
+      <span><a href="aboutus.html">About Us</a></span>
+      <span><a href="postcard.html">Results</a></span>
+    </nav>
   </header>
   <main>
-<section>
-
-</section>
+  <h1>Choose Your Seattle Adventure</h1>
+  <section id="maincontainer">
+    <section id="selectioncontainer">
+   </section>
+   <section id="headercontainer">
+   </section>
+   <section id="instructionscontainer">
+  </section>
+   <section id="imagecontainer">
+   </section>
+   <section id="description">
+    </section>
+    <section id="eventcontainer">
+      <form id="playgame">
+        <fieldset>
+          <legend>Please let us know your name:</legend>
+          <!-- Ask for username -->
+          <label for="username">Name:
+            <input type="text" name="username" id="username" pattern="[A-Za-z]+" required>
+          </label>
+          <button type="submit">Play Game!</button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="finalform">
+      <form id="postcardform">
+        <fieldset>
+          <legend>Enter the special message you'd like to put on your postcard:</legend>
+          <label for="postcardinput">Message:
+            <input type="text" name="postcardinput" id="postcardinput" size="50" maxlength="300" required>
+          </label>
+          <span class="validity"></span>
+          <button type="submit" id="createpostcard">Create Your Postcard!</button>
+        </fieldset>
+      </form>
+    </section>
+  </section>
   </main>
   <footer>
-
+    Created by Carly, Clement, Mikey, and Stephen for Code 201 Final Project
   </footer>
   <script src="js/app.js"></script>
 </body>
 </html>
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#Validation -->
+<!--ADD THIS TO STYLE.CSS for validity styling:
+  div {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+input + span {
+  padding-right: 30px;
+}
+
+input:invalid+span:after {
+  position: absolute; content: '✖';
+  padding-left: 5px;
+}
+
+input:valid+span:after {
+  position: absolute;
+  content: '✓';
+  padding-left: 5px;
+} -->
