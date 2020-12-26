@@ -44,6 +44,7 @@ new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about WHE
 new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE', 'Click this awesome choice!');
 new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Click THIS awesome choice!');
 
+
 new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!');
 new Instructions('Game play instructions', 'space-needle.png', 'you are having fun right now because you are playing this game');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.png', 'Here is where you enter your awesome message');
@@ -117,10 +118,13 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
+        console.log(i);
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
+    console.log(chosenPlaces);
+    console.log(actualScenes);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', eventContainer, pickedPlace[0], 'thumbnail');
@@ -155,6 +159,7 @@ function postcardInput() {
 }
 
 function postcardPull(event) {
+  console.log('Inside postcardpull');
   event.preventDefault();
   var postcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
