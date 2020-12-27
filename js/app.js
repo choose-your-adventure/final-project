@@ -20,32 +20,32 @@ var descriptionContainer = document.getElementById('description'); // for text i
 var eventContainer = document.getElementById('eventcontainer'); // for both forms
 var finalForm = document.getElementById('finalform'); //for postcard text entry
 
-function Adventure(name, image, text, teaser) {
+function Adventure(name, image, text, blurb, teaser) {
   this.name = name;
   this.image = `img/${image}`;
   this.thumbnail = `thumbs/${image}`;
   this.text = text;
-  // this.blurb = blurb;
+  this.blurb = blurb;
   this.teaser = teaser;
   allDestinations.push(this);
 }
 
-function Instructions(name, image, text) {
+function Instructions(name, image, text, extra) {
   this.name = name;
   this.image = `img/${image}`;
   this.text = text;
+  this.extra = extra;
   allInstructions.push(this);
 }
 
+new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Few people know X about Y.', 'Click this awesome choice!');
+new Adventure('Seattle Sunset', 'seattle-sunset.png', 'Long Descriptive Text about SEATTLE', 'Few people know X about Y.', 'Click this awesome choice!');
+new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about WHEEL', 'Few people know X about Y.', 'Click this awesome choice!');
+new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE', 'Few people know X about Y.', 'Click this awesome choice!');
+new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
 
-new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Click this awesome choice!');
-new Adventure('Seattle Sunset', 'seattle-sunset.png', 'Long Descriptive Text about SEATTLE', 'Click this awesome choice!');
-new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about WHEEL', 'Click this awesome choice!');
-new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE', 'Click this awesome choice!');
-new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Click THIS awesome choice!');
 
-
-new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!');
+new Instructions('Welcome to our Adventure in Seattle Game!', 'starting-image.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!', 'THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT');
 new Instructions('Game play instructions', 'space-needle.png', 'you are having fun right now because you are playing this game');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.png', 'Here is where you enter your awesome message');
 new Instructions('Check it out!', 'starting-image.png', 'A virtual memento from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
@@ -53,14 +53,29 @@ new Instructions('Welcome back!', 'starting-image.png', 'If you\'d like to play 
 
 function renderElement(newElement, parentElement, obj, content, index) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
-    var childElement = document.createElement(newElement);
-    childElement.src = obj.thumbnail;
-    childElement.title = obj.teaser;
-    childElement.alt = obj.name;
-    childElement.setAttribute('id', index);
-    childElement.setAttribute('class', 'flip-card');
-    parentElement.appendChild(childElement);
-    childElement.addEventListener('click', thumbClick);
+    var flipCard = document.createElement('div');
+    flipCard.setAttribute('class', 'flip-card');
+    parentElement.appendChild(flipCard);
+    var inner = document.createElement('div')
+    inner.setAttribute('class', 'flip-card-inner');
+    flipCard.appendChild(inner);
+    var front = document.createElement('div');
+    front.setAttribute('class', 'flip-card-front');
+    inner.appendChild(front);
+    var frontElement = document.createElement(newElement);
+    frontElement.src = obj.thumbnail;
+    frontElement.title = obj.teaser;
+    frontElement.alt = obj.name;
+    frontElement.setAttribute('id', index);
+    frontElement.addEventListener('click', thumbClick);
+    front.appendChild(frontElement);
+    var back = document.createElement('div');
+    back.setAttribute('class', 'flip-card-back');
+    inner.appendChild(back);
+    var flipEl = document.createElement('p')
+    flipEl.textContent = obj.blurb;
+    flipEl.setAttribute('class', 'text'); 
+    back.appendChild(flipEl);
   } else if (newElement === 'img' && content === 'image') {// for large images
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
@@ -81,7 +96,11 @@ function beginAdventure() {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
   renderElement('h2', headerContainer, allInstructions[0], 'name');
-  renderElement('img', imageContainer, allInstructions[0], 'image');
+  imageContainer.innerHTML = '';
+  var welcome = document.createElement('p');
+  welcome.textContent = allInstructions[0]['extra'];
+//  welcome.setAttribute('class', 'star-wars crawl title');
+  imageContainer.appendChild(welcome);
   renderElement('p', descriptionContainer, allInstructions[0], 'text');
   eventContainer.addEventListener('submit', inputName);
 }
@@ -162,7 +181,7 @@ function postcardInput() {
 function postcardPull(event) {
   console.log('Inside postcardpull');
   event.preventDefault();
-  var postcardMessage = event.target.postcardinput.value;
+  postcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
   finalForm.setAttribute('style', 'display:none;');
   revealPostcard();
@@ -199,7 +218,12 @@ if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
   renderElement('h2', headerContainer, allInstructions[4], 'name');
-  renderElement('img', imageContainer, allInstructions[4], 'image');
+  imageContainer.innerHTML = '';
+  var welcome = document.createElement('p');
+  welcome.textContent = allInstructions[0]['extra'];
+//  welcome.setAttribute('class', 'star-wars crawl title');
+  imageContainer.appendChild(welcome);
+  // renderElement('img', imageContainer, allInstructions[4], 'image');
   renderElement('p', descriptionContainer, allInstructions[4], 'text');
   eventContainer.addEventListener('submit', inputName);
 } else {
