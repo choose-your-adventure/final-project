@@ -106,12 +106,24 @@ main li {
   margin-left: 50px;
   float: left;
   padding-bottom: 25px;
+#selectioncontainer {
+  /* margin-left: 0px; */
+  margin-left: auto;
+  padding-bottom: 25px;
+}
+#headercontainer {
+  display: block;
+
 }
 main p {
   font-size: 1.25em;
   padding-bottom: 20px;
 }
-#formcontainer {
+
+  #formcontainer {}
+
+
+#eventcontainer {
   margin-left: 75px;
   margin-right: 75px;
   padding-top: 20px;
@@ -154,6 +166,13 @@ html {
   margin: 0 auto;
   width: 236px;
 }
+
+.card:hover {
+  -webkit-transform: scale(1.0);
+  -ms-transform: scale(1.0);
+  transform: scale(1.0);
+}
+
 h2 {
   font-size: 1.3em;
 }
@@ -186,7 +205,15 @@ h5 {
 }
 .team-h2 {
   font-size: 2em;
+
   margin: 30px;
+
+  padding: 15px;
+}
+
+h2 {
+  font-size: 1.3em;
+
 }
 .team-container {
   padding: 0 16px;
