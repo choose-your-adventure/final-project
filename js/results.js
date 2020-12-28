@@ -30,7 +30,7 @@ function renderElement(newElement, obj, content) {
 function showStoredPostcard() {
   if (storedUserName && storedImages && storedPostcardMessage) {
     var parsedUserName = JSON.parse(storedUserName);
-    var parsedImages = JSON.parse(storedImages);
+    var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
     var parsedMessage = JSON.parse(storedPostcardMessage);
   } else {
     previousCardsToDisplay = 5;
