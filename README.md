@@ -58,3 +58,9 @@ fog.jpg photo by João Cabral from Pexels
 skyline.jpg photo by Chait Goli from Pexels
 skyline2.jpg photo by Josh Fields from Pexels
 prepostcard.jpg photo by Ylanite Koppens from Pexels
+
+golden-gardens.jpg photo by Joe Mabel (Creative Commons)
+golden-gardens2.jpg photo by Stephen Webber
+golden-gardens3.jpg photo by Stephen Webber
+seattle-aquarium.jpg photo by Joe Mabel (Creative Commons)
+seattle-aquarium2.jpg photo by Joe Mabel (Creative Commons)

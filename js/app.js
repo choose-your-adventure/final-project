@@ -49,7 +49,7 @@ function Instructions(name, image, text, extra) {
   this.extra = extra;
   allInstructions.push(this);
 }
-// Positive, Neutral, and Challenge Encounter 
+// Positive, Neutral, Challenge Encounters, challenges 2 levels deep
 function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.name = name;
   this.encounter = `img/${encounter}`;
@@ -62,10 +62,22 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
 }
 
 new Adventure('Space Needle', 'space-needle.png', 'Long Descriptive Text about it', 'Few people know X about Y.', 'Click this awesome choice!');
-new Adventure('Seattle Sunset', 'seattle-sunset.png', 'Long Descriptive Text about SEATTLE', 'Few people know X about Y.', 'Click this awesome choice!');
 new Adventure('Great Wheel', 'great-wheel.png', 'Long Descriptive Text about WHEEL', 'Few people know X about Y.', 'Click this awesome choice!');
 new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE', 'Few people know X about Y.', 'Click this awesome choice!');
 new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Gum Wall', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Pacific Science Center', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Museum of Pop Culture', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Museum of Flight', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Kubota Garden', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Fremont Troll', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Chihuli Museum of Glass', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Golden Gardens', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Seattle Art Museum', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Seattle Aquarium', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Ballard Locks', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+new Adventure('Starbucks Reserve Roastery', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+
 
 new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!', 'THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT');
 new Instructions('Game play instructions', 'skyline2.jpg', 'you are having fun right now because you are playing this game');
