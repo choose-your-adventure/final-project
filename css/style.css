@@ -1,8 +1,11 @@
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Home Page */
 
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Gothic A1', sans-serif;
+}
 .text {
   font-size: 1em;
 }
@@ -12,7 +15,6 @@ body {
   height: 150px;
   perspective: 1000px;
 }
-
 .flip-card-inner {
   position: relative;
   width: 150px;
@@ -22,11 +24,9 @@ body {
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
-
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
-
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 150px;
@@ -34,80 +34,83 @@ body {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
 .flip-card-front {
   background-color: #bbb;
   color: black;
 }
-
 .flip-card-back {
   background-color: rgb(105, 190, 40);
-  color: white;
+  color: rgb(3, 34, 68);
   transform: rotateY(180deg);
 }
-
 .displayed {
   display: block;
   margin-left: auto;
   margin-right: auto 
 }
-
-
-/* Postcard text style is script */
-
-
-/* Home Page */
-
 header {
-  background-color: rgb(98, 124, 150);
-  height: 50px;
+  background-color: rgb(3, 34, 68);
+  height: 55px;
 }
-
 header nav {
   width: 960px;
   margin: auto;
 }
-
 header span {
   display: inline-block;
   line-height: 50px;
-  margin-left: 200px;
+  margin: 0 100px;
 }
-
 nav a {
+  transition: 0.001s;
+  color: rgb(105, 190, 40);;
+  font-size: 20px;
   text-decoration: none;
-  color: rgb(3, 34, 68, 1.0);
-  background-color: rgb(105, 190, 40);
-  border: 5px,  rgb(3, 34, 68l 1.0);
+  padding: 0 10px;
+  margin: 0 auto;
 }
+nav a:hover {
+  background-color: rgb(105, 190, 40);
+  color: rgb(3, 34, 68);
+  padding: 20px 10px;
+}
+i {
+  color: rgb(3, 34, 68);
+  font-size: 1em;
+  margin: 4px;
+}
+.social {
+  margin: auto;
+  width: fit-content;
+  padding: 5px;
 
+}
 main {
   width: 960px;
   margin: auto;
 }
-
-main h1 {
+.choose {
   text-align: center;
   padding: 20px;
-  font-size: 2em;
+  font-size: 3em;
   padding-bottom: 40px;
+  color: rgb(3, 34, 68);
+  -webkit-text-stroke: 1px rgb(105, 190, 40);
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-weight: 400;
 }
-
 main li:first-child {
   margin-left: 0px;
 }
-
 main li {
   margin-left: 50px;
   float: left;
   padding-bottom: 25px;
 }
-
 main p {
   font-size: 1.25em;
   padding-bottom: 20px;
 }
-
 #formcontainer {
   margin-left: 75px;
   margin-right: 75px;
@@ -117,11 +120,9 @@ main p {
   border: 1px solid black;
   line-height: 40px;
 }
-
 fieldset label {
   display: block;
 }
-
 footer {
   margin-top: 25px;
   text-align: center;
@@ -131,91 +132,88 @@ footer {
 /* About us */
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   margin: 0 auto;
   width: 960px;
   background-color:rgb(165, 172, 175);
 }
-
 html {
   box-sizing: border-box;
 }
-
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
 .column {
   float: left;
   width: 25%;
   margin-bottom: 16px;
   padding: 0 2px;
 }
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(3, 34, 68, 0.8);
   margin: 0 auto;
-}
-
-.card:hover {
-  -webkit-transform: scale(1.0);
-  -ms-transform: scale(1.0);
-  transform: scale(1.0);
-}
-
-
-h2 {
-  font-size: 1em;
-}
-
-.about-section {
-  padding: 50px;
-  text-align: center;
-  background-color: #474e5d;
-  background-image: url("/prep-images/seattle_skyline.jpg");
-  color: rgb(105, 190,40);
-}
-.about-section h1 {
-  font-size: 2em;
-  color:rgb(3, 34, 68);
-}
-
-.team-h2 {
-  font-size: 2em;
+  width: 236px;
 }
 h2 {
   font-size: 1.3em;
 }
+.team-h2 {
+  font-family: "Gothic A1";
+  font-weight: 500;
+  color: rgb(105, 190, 40);
+  text-shadow: 1px 1px  rgb(3, 34, 68);
+}
+h5 {
+  font-size: .75em;
+}
+.name {
+  height: 50px;
+}
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-image: url("/prep-images/seattle_skyline.jpg");
+}
+.about-section h1 {
+  font-size: 3em;
+  font-weight: 500;
+  color: rgb(105, 190, 40);
+  text-shadow: 3px 1px  rgb(3, 34, 68);
+}
+.about-section p {
+  color:rgb(105, 190, 40);
+  text-shadow: 1px 1px  rgb(3, 34, 68);
+}
+.team-h2 {
+  font-size: 2em;
+  margin: 30px;
+}
 .team-container {
   padding: 0 16px;
+  height: 350px;
 }
-
+.bio {
+  height: 180px;
+}
 .team-container::after, .row::after {
   content: "";
   clear: both;
 }
-
-.title {
-  color: grey;
-  size: 1em;
-}
-
 .button {
   border: none;
   outline: 0;
   display: inline-block;
-  padding: 8px;
-  color: white;
+  padding: 6px;
+  color: rgb(105, 190, 40);
   background-color: rgb(3, 34, 68);
   text-align: center;
   cursor: pointer;
   width: 100%;
 }
-
 .button:hover {
   background-color: rgb(105, 190, 40);
+  color: rgb(3, 34, 68);
 }
-
 @media screen and (max-width: 650px) {
   .column {
     width: 100%;
@@ -223,7 +221,7 @@ h2 {
   }
 }
 
-/* Welcome to Seattle */
+/* Star-Wars Crawl */
 
 .star-wars {
   width: 960px;
@@ -231,22 +229,19 @@ h2 {
   background: rgb(165, 172, 175);
   overflow: hidden;
 }
-
-/* .fade {
-  position: relative;
-  width: 100%;
-  min-height: 60vh;
-  top: -25px;
-  background-image: linear-gradient(0deg, transparent, black 75%);
-  z-index: 1;
+/* .title {
+  color: rgb(3, 34, 68);
+  size: 1em;
+  font-weight: 600;
+  -webkit-text-stroke: 2px rgb(105, 190, 140);
 } */
-
 .star-wars {
   display: flex;
   justify-content: center;
   position: relative;
   height: 480px;
   color: rgb(3, 34, 68);
+  -webkit-text-stroke: 2px rgb(105, 190, 40);
   font-family: 'Pathway Gothic One', sans-serif;
   font-size: 500%;
   font-weight: 600;
@@ -255,24 +250,20 @@ h2 {
   perspective: 400px;
   text-align: justify;
 }
-
 .crawl {
   position: relative;
   top: 99999px;
   transform-origin: 50% 100%;
   animation: crawl 60s linear;
 }
-
 .crawl > .title {
   font-size: 90%;
   text-align: center;
 }
-
 .crawl > .title h1 {
   margin: 0 0 100px;
   text-transform: uppercase;
 }
-
 @keyframes crawl {
 	0% {
     top: -100px;

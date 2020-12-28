@@ -1,91 +1,125 @@
-<!-- *Aboutus.html*: about us
-nav with links to play game and view postcards
-heading with logo
-main section featuring 4 images and bio for each person
-footer -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/94c005aa00.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <title>About Your Mementoizers</title>
 </head>
+
 <body>
+
   <body>
     <header>
-        <nav class="header nav">
-          <span><a href="index.html">Home Page</a></span>
-          <span><a href="aboutus.html">About Us</a></span>
-          <span><a href="postcard.html">Results</a></span>
-        </nav>
-      </header>
-    <div class="about-section H1">
-      <h1>About Us Page</h1>
+      <nav class="header nav">
+        <span><a href="buildout-index.html">Home Page</a></span>
+        <span><a href="aboutus.html">About Us</a></span>
+        <span><a href="postcard.html">Postcard</a></span>
+      </nav>
+    </header>
+    <div class="about-section H1 p">
+      <h1>About Us</h1>
       <p>Some text about who we are and what we do.</p>
       <p>Resize the browser window to see that this page is responsive.</p>
     </div>
-    
+
     <h2 class="team-h2" style="text-align:center">Our Team</h2>
     <div class="row">
       <div class="column">
         <div class="card">
-          <img src=https://via.placeholder.com/200/09f/fff.png alt="Carly Dekock" style="width:100%">
+          <img src="prep-images/CarlyB.jpg" alt="Carly Dekock" style="width:100%">
           <div class="team-container">
-            <h2>Carly Dekock</h2>
-            <p class="title">Software Developer</p>
-            <p>Some text that describes Carly lorem ipsum ipsum lorem lorem ipsum ipsum lorem.lorem ipsum ipsum lorem.</p>
-            <p>carly@example.com</p><br>
-            <p><button class="button">Contact</button></p>
+            <div class="name">
+              <h2>Carly Dekock</h2>
+            </div>
+            <p class="title">Software Developer</p><br>
+            <p class="bio">I am a software developer specializing in people-first problem solving. Analytical and also
+              deeply empathetic, with a background in recruiting, business administration, and math.</p><br>
+            <section class="social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/carlydekock/" alt="linkedin"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://github.com/carlydekock" alt="github"><i class="fab fa-github"></i></a>
+              <a href="#" alt="portfolio"><i class="fas fa-portrait"></i></a>
+              <br>
+            </section>
+            <a class="button" href="mailto:carlyd@gmail.com">Contact</a>
           </div>
         </div>
       </div>
-    
+
       <div class="column">
         <div class="card">
           <img src=https://via.placeholder.com/200/09f/fff.png alt="Mickey Russel" style="width:100%">
           <div class="team-container">
-            <h2>Mickey Russel</h2>
-            <p class="title">Software Developer</p>
-            <p>Some text that describes Mickey lorem ipsum ipsum lorem lorem ipsum ipsum lorem lorem ipsum ipsum lorem.</p>
-            <p>mickey@example.com</p><br>
-            <p><button class="button">Contact</button></p>
+            <div class="name">
+              <h2>Michael Russel</h2>
+            </div>
+            <p class="title">Software Developer</p><br>
+            <p class="bio">Some text that describes Mickey lorem ipsum ipsum lorem lorem ipsum ipsum lorem lorem ipsum
+              ipsum lorem.</p><br>
+            <section class="social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/michael-russell1/"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://github.com/iswimfree"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fas fa-portrait"></i></a>
+              <br>
+            </section>
+            <a class="button" href="mailto:michaelm@gmail.com">Contact</a>
           </div>
         </div>
       </div>
-      
       <div class="column">
         <div class="card">
-          <img src=https://via.placeholder.com/200/09f/fff.png alt="Clement Buchanan" style="width:100%">
+          <img src="prep-images/ClementB.jpg" alt="Clement Buchanan" style="width:100%">
           <div class="team-container">
-            <h2>Clement Buchanan</h2>
-            <p class="title">Software Developer</p>
-            <p>Some text that describes Clement lorem ipsum ipsum lorem lorem ipsum ipsum loremlorem ipsum ipsum lorem.</p>
-            <p>clement@example.com</p><br>
-            <p><button class="button">Contact</button></p>
+            <div class="name">
+              <h2>Clement Buchanan</h2>
+              <h5>MA, MPH (Informatics)</h5>
+            </div>
+            <p class="title">Software Developer</p><br>
+            <p class="bio">I am a software developer with a passion for creating technological applications for making
+              the delivery of healthcare services more dynamic and simplified. As an avid cyclist with a background in public health and organizational development.</p><br>
+            <section class="social">
+              <a href="https://twitter.com/clementbuchanan"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/clement-buchanan-ma-mph-informatics-bb50a5a/"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://github.com/ClementBuchanan"><i class="fab fa-github"></i></a>
+              <a href="http://livewisely2020.com/MyPortfolio"><i class="fas fa-portrait"></i></a>
+              <br>
+            </section>
+            <a class="button" href="mailto:clement.buchanan@gmail.com">Contact</a>
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="column">
-        <div class="card">
-          <img src=https://via.placeholder.com/200/09f/fff.png alt="Stephen Webber" style="width:100%">
-          <div class="team-container">
+      <div class="card">
+        <img src="prep-images/StephenW.jpg" alt="Stephen Webber" style="width:100%">
+        <div class="team-container">
+          <div class="name">
             <h2>Stephen Webber</h2>
-            <p class="title">Software Developer</p>
-            <p>Some text that describes Stephen lorem ipsum ipsum lorem lorem ipsum ipsum lorem lorem ipsum ipsum lorem.</p>
-            <p>stephen@example.com</p><br>
-            <p><button class="button">Contact</button></p>
           </div>
+          <p class="title">Software Developer</p><br>
+          <p class="bio">I am a software developer specializing in writing human-friendly and efficient code with an eye
+            for continual optimization. Energetic and versatile team player with background as an author and professor.
+          </p><br>
+          <section class="social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/stephen-lloyd-webber/"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/offgridauthor"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fas fa-portrait"></i></a>
+            <br>
+          </section>
+          <a class="button" href="mailto:stephenw@gmail.com">Contact</a>
         </div>
       </div>
     </div>
-    
-    </body>
+    </div>
+
+  </body>
 </body>
+
 </html>
-
-
