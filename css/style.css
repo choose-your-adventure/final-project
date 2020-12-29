@@ -17,15 +17,31 @@ body {
   font-size: 3em;
 }
 
+#headercontanier h2 {
+  font-size: 3em;
+  text-align: center;
+
+}
+
 .text {
   font-size: 1em;
 }
+
+
 .flip-card {
   background-color: transparent;
   width: 150px;
   height: 150px;
   perspective: 1000px;
+  display: inline-block;
+  margin-left: 35px;
 }
+
+/* may need to adjust*/
+.flip-card:nth-child(1) {
+  margin-top: 35px;
+}
+
 .flip-card-inner {
   position: relative;
   width: 150px;
@@ -120,7 +136,6 @@ main li {
 }
 
 #selectioncontainer {
-  /* margin-left: 0px; */
   margin-left: auto;
   padding-bottom: 25px;
 }
@@ -249,12 +264,17 @@ h2 {
 }
 .team-container {
   padding: 0 16px;
-  height: 350px;
+  height: 365px;
 }
 
 .img-wrap {
   position: relative;
   margin: auto;
+}
+.mouseover {
+  font-size: .8em;
+  color: rgb(3,34, 68);
+  text-align: center;
 }
 
 .img-text {
@@ -264,9 +284,12 @@ h2 {
   left: 0;
   right: 0;
   background: rgba(105, 190, 40, 0.9);
+  background-size: 365px;
   color: rgb(3, 34, 68);
   visibility: hidden;
-  transition: opacity .1s, visibility .1s;
+  /* transition: opacity .1s, visibility .1s; */
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
 }
 
 .img-wrap:hover .img-text {
