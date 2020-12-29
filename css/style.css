@@ -195,22 +195,26 @@ h5 {
 .about-section {
   padding: 50px;
   text-align: center;
-  background-image: url("/prep-images/seattle_skyline.jpg");
+  background-image: url("/prep-images/new-seattle.jpg");
 }
 .about-section h1 {
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: 500;
   color: rgb(105, 190, 40);
-  text-shadow: 3px 1px  rgb(3, 34, 68);
+  text-shadow: 3px 2px  rgb(3, 34, 68);
 }
 .about-section p {
   color:rgb(105, 190, 40);
-  text-shadow: 1px 1px  rgb(3, 34, 68);
+  font-size: 1.2em;
+  text-shadow: 2px 2px  rgb(3, 34, 68);
 }
 .team-h2 {
   font-size: 2em;
 
   margin: 30px;
+<<<<<<< HEAD
+  text-shadow: 2px 2px rgb(3, 34, 68);
+=======
 
   padding: 15px;
 }
@@ -218,6 +222,7 @@ h5 {
 h2 {
   font-size: 1.3em;
 
+>>>>>>> 2fdfd927b0324d4cf04ca6041e693fc39634e70b
 }
 .team-container {
   padding: 0 16px;
