@@ -30,6 +30,7 @@ var descriptionContainer = document.getElementById('description'); // for text i
 var eventContainer = document.getElementById('eventcontainer'); // for both forms
 var finalForm = document.getElementById('finalform'); //for postcard text entry
 var travelledToContainer = document.createElement('section');
+travelledToContainer.setAttribute('id', 'travelcontainer');
 mainContainer.appendChild(travelledToContainer);
 
 function Adventure(name, image, text, blurb, teaser) { // teaser on mouseover, blurb on flip, text if clicked
@@ -53,11 +54,11 @@ function Instructions(name, image, text, extra) {
 // Positive, Neutral, Challenge Encounters, challenges 2 levels deep
 function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.name = name;
-  this.encounter = `img/${encounter}`;
-  this.text = text;
-  this.yes = yes;
+  this.encounter = `img/${encounter}`; // image
+  this.text = text; // description leading to choice
+  this.yes = yes; // description if yes/no
   this.no = no;
-  this.yesAttr = yesAttr;
+  this.yesAttr = yesAttr; // badge if yes/no
   this.noAttr = noAttr;
   allEncounters.push(this);
 }
@@ -80,17 +81,18 @@ new Adventure('Pacific Science Center', 'waterfront.png', 'Long Descriptive Text
 // new Adventure('Starbucks Reserve Roastery', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
 
 
-new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!', 'THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT');
-new Instructions('Game play instructions', 'skyline2.jpg', 'you are having fun right now because you are playing this game');
-new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Here is where you enter your awesome message');
-new Instructions('Check it out!', 'starting-image.png', 'A virtual memento from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
+new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', '');
+new Instructions('How To Play', 'skyline2.jpg', 'Our virtual travel agency has arranged for you to tour a total of five destinations in Seattle. Click any of the image thumbnails at the top of the screen to visit that destination. While there, simply click the big image to be taken to a chance encounter along your way.'); 
+new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?');
+new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
 new Instructions('Welcome back!', 'skyline.jpg', 'If you\'d like to play again, please enter your desired username for this journey.');
 
 // should something like this be stored in separate JSON file instead?
 new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light');
-new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', 'Positive Pete', 'Negative Nelly');
-new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nelly');
-new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', 'Sports Fan', 'Bird Lover');
+new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly');
+new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate');
+new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', '"Hey, thanks!" you say, taking the man\'s extra jersey. He smiles and heads off. His generosity leaves you feeling optimistic about what might come next.', '"Oh, no thanks," you reply, turning him down. "I\'m more of a soccer/tennis/bird-watcher anyway. I appreciate the offer, though."', 'Sports Fan', 'Bird Lover');
+new Encounter('Discovery', 'wallet.jpg', 'While out and about, you come across a wallet. Checking inside, you find $40, but no cards or other forms of identification. There is a Lost and Found box not too far away. Do you return the $40 along with the wallet?', 'You decide that the Golden Rule applies here. If it had been your wallet, you would appreciate any chance of recovering its contents.', 'Deciding that it would be unlikely for a wallet without identification to be found by its proper owner, you pocket the cash.', 'Honest Abe', 'Finder\'s Keepers');
 
 function renderElement(newElement, parentElement, obj, content, index) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
@@ -119,7 +121,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
       flipEl.setAttribute('class', 'text');
       back.appendChild(flipEl);
     } else {
-      var thumb = document.createElement(newElement);
+      var thumb = document.createElement(newElement); // for chosen images at bottom
       thumb.src = obj.thumbnail;
       thumb.title = obj.teaser;
       thumb.alt = obj.name;
@@ -178,8 +180,14 @@ function enterGame() {
     remainingEncounters[j] = allEncounters[j];
   }
   renderElement('h2', headerContainer, allInstructions[1], 'name');
-  renderElement('img', imageContainer, allInstructions[1], 'image');
+
   renderElement('p', descriptionContainer, allInstructions[1], 'text');
+  imageContainer.innerHTML = '';
+  var childElement = document.createElement('img');
+  childElement.src = allInstructions[1].image;
+  childElement.title = allInstructions[1].teaser;
+  childElement.alt = allInstructions[1].name;
+  imageContainer.appendChild(childElement);// rending
   renderThumbnails();
 }
 
@@ -205,8 +213,8 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
-    console.log(chosenPlaces);
-    console.log(actualScenes);
+    // console.log(chosenPlaces);
+    // console.log(actualScenes);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
@@ -221,17 +229,17 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     clickedDestination = event.target.alt;
     popIndex = null;
     // actualScenes++;
-    console.log(actualScenes);
+    // console.log(actualScenes);
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
-        console.log(i);
+        // console.log(i);
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
-    console.log(chosenPlaces);
-    console.log(actualScenes);
+    // console.log(chosenPlaces);
+    // console.log(actualScenes);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
@@ -243,6 +251,7 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
 }
 
 function showNextScene() {
+  eventContainer.innerHTML = '';
   renderElement('h2', headerContainer, pickedPlace[0], 'name');
   renderElement('img', imageContainer, pickedPlace[0], 'image');
   renderElement('p', descriptionContainer, pickedPlace[0], 'text');
@@ -251,7 +260,10 @@ function showNextScene() {
 function clickBigImage(event) {  // flip image to trigger Encounter
   event.preventDefault();
   selectionContainer.innerHTML = ''; // to prevent clicking away
-  currentEncounterIndex = Math.floor(Math.random() * Math.floor(remainingEncounters.length));
+  while (doneEncounters.includes(currentEncounterIndex)) {
+    currentEncounterIndex = Math.floor(Math.random() * Math.floor(remainingEncounters.length));// ensure no duplicates
+  }
+  doneEncounters.push(currentEncounterIndex);
   renderElement('h2', headerContainer, remainingEncounters[currentEncounterIndex], 'name');
   renderElement('img', imageContainer, remainingEncounters[currentEncounterIndex], 'encounter');
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'text');
@@ -307,7 +319,7 @@ function tallyEncounterBadges() { // -------- at end, to store and render with p
 
 function postcardInput() {
   selectionContainer.innerHTML = '';
-  eventContainer.innerHTML = 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?';
+  eventContainer.innerHTML = '';
   renderElement('h2', headerContainer, allInstructions[2], 'name');
   renderElement('img', imageContainer, allInstructions[2], 'image');
   renderElement('p', descriptionContainer, allInstructions[2], 'text');
@@ -326,6 +338,7 @@ function postcardPull(event) {
 function revealPostcard() {
   eventContainer.innerHTML = '';
   imageContainer.innerHTML = '';
+  travelledToContainer.innerHTML = '';
   renderElement('h2', headerContainer, allInstructions[3], 'name');
   renderElement('p', descriptionContainer, allInstructions[3], 'text');
   var cardTextEl = document.createElement('p');
@@ -336,16 +349,17 @@ function revealPostcard() {
   cardFromEl.textContent = '--- ' + userName;
   cardFromEl.setAttribute('id', 'postcardusername'); // for CSS styling
   imageContainer.appendChild(cardFromEl);
+  // render badges from array  called encounterBadges
   for (var i = 0; i < chosenPlaces.length; i++) {
     var childElement = document.createElement('img');
-    childElement.src = chosenPlaces[i][0].thumbnail; // renders an array of 4 items. need to check flow control for why this happens.
+    childElement.src = chosenPlaces[i][0].thumbnail;
     imageContainer.appendChild(childElement);
   }
   var viewAll = document.createElement('a');
   viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
-  viewAll.title = 'Click Here to see all previous postcards from fellow travelers';
+  viewAll.title = 'Click Here to how awesome your postcard is compared to those from previous travelers';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
 }

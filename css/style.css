@@ -6,6 +6,17 @@
 body {
   font-family: 'Gothic A1', sans-serif;
 }
+#maincontainer {
+  font-size: 2em;
+}
+
+#maincontainer h2 {
+  font-size: 2.3em;
+}
+#home {
+  font-size: 3em;
+}
+
 .text {
   font-size: 1em;
 }
@@ -106,7 +117,7 @@ main li {
   margin-left: 50px;
   float: left;
   padding-bottom: 25px;
-
+}
 #selectioncontainer {
   /* margin-left: 0px; */
   margin-left: auto;
@@ -122,20 +133,35 @@ main p {
   padding-bottom: 20px;
 }
 
-#formcontainer {
-  
-}
-
-
 #eventcontainer {
   margin-left: 75px;
   margin-right: 75px;
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   line-height: 40px;
 }
+
+#eventcontainer input {
+  font-size: larger;
+}
+
+#eventcontainer button {
+  font-size: larger;
+}
+
+#description {
+  margin-left: 75px;
+  margin-right: 75px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#travelcontainer img {
+  padding: 10px;
+}
+
 fieldset label {
   display: block;
 }
@@ -210,19 +236,8 @@ h5 {
 }
 .team-h2 {
   font-size: 2em;
-
   margin: 30px;
-<<<<<<< HEAD
   text-shadow: 2px 2px rgb(3, 34, 68);
-=======
-
-  padding: 15px;
-}
-
-h2 {
-  font-size: 1.3em;
-
->>>>>>> 2fdfd927b0324d4cf04ca6041e693fc39634e70b
 }
 .team-container {
   padding: 0 16px;

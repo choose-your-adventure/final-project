@@ -64,3 +64,4 @@ golden-gardens2.jpg photo by Stephen Webber
 golden-gardens3.jpg photo by Stephen Webber
 seattle-aquarium.jpg photo by Joe Mabel (Creative Commons)
 seattle-aquarium2.jpg photo by Joe Mabel (Creative Commons)
+wallet.jpg photo by Artem Beliaikin
