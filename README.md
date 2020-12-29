@@ -48,6 +48,7 @@ Populate images from localstorage based on journey taken.
 ## References
 
 Consulted [StackOverflow](https://stackoverflow.com/questions/17087636/how-to-save-data-from-a-form-with-html5-local-storage) for additional specifics on implementing localStorage with HTML input forms.
+setTimeout function per help from Chance (TA).
 
 ## Image Credits
 
@@ -65,3 +66,27 @@ golden-gardens3.jpg photo by Stephen Webber
 seattle-aquarium.jpg photo by Joe Mabel (Creative Commons)
 seattle-aquarium2.jpg photo by Joe Mabel (Creative Commons)
 wallet.jpg photo by Artem Beliaikin
+
+Starbucks images: https://www.starbucksreserve.com/en-us/locations/seattle, https://www.jtm-construction.com/wp-content/uploads/2015/05/HERO1.jpg
+MOHAI images: https://mohai.org/wp-content/uploads/2016/12/Home_Landing1-2400x1350.jpg, https://media-cdn.tripadvisor.com/media/photo-s/03/5e/4d/d5/museum-of-history-industry.jpg
+Fremont Troll images: https://upload.wikimedia.org/wikipedia/en/d/d3/FremontTroll.jpg
+Chihuly images: https://www.chihulygardenandglass.com/visit/plan-your-visit
+
+## Destinations Content Credits
+
+MoPOP: https://www.mopop.org//about-mopop/
+Pacific Science Center: https://www.pacificsciencecenter.org/about/
+Space Needle: https://www.spaceneedle.com/facts-1
+Museum of Flight: https://www.museumofflight.org/About
+Gum Wall: https://www.tripsavvy.com/weird-facts-about-seattles-gum-wall-4134249
+Kubota Garden: https://www.tripsavvy.com/weird-facts-about-seattles-gum-wall-4134249
+Great Wheel: https://www.historylink.org/File/11051
+Pike Place Market: http://pikeplacemarket.org/history
+Chihuly Garden and Glass: https://www.chihulygardenandglass.com/about/story
+Fremont Troll: https://www.seattletimes.com/life/a-brief-history-of-the-fremont-troll-a-menace-that-evokes-a-smile/
+Seattle Aquarium: https://www.seattleaquarium.org/who-we-are
+Ballard Locks: https://www.nws.usace.army.mil/Missions/Civil-Works/Locks-and-Dams/Chittenden-Locks/
+Golden Gardens: https://www.seattle.gov/parks/find/parks/golden-gardens-park
+Seattle Art Museum: http://www.seattleartmuseum.org/about-sam
+MOHAI: https://historylink.org/File/11068
+Starbucks Reserve Roastery: https://www.starbucksreserve.com/en-us/articles/the-seattle-roastery
