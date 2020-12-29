@@ -106,11 +106,13 @@ main li {
   margin-left: 50px;
   float: left;
   padding-bottom: 25px;
+
 #selectioncontainer {
   /* margin-left: 0px; */
   margin-left: auto;
   padding-bottom: 25px;
 }
+
 #headercontainer {
   display: block;
 
@@ -120,7 +122,9 @@ main p {
   padding-bottom: 20px;
 }
 
-  #formcontainer {}
+#formcontainer {
+  
+}
 
 
 #eventcontainer {

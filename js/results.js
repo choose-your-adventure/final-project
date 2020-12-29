@@ -10,20 +10,22 @@ var previousMessages = ['I got hit in the face by a fish but it\'s all good!', '
 var previousPostmarks = ['11/11/1997', '5/13/2010', '2/1/2017', '9/22/2019', '12/31/1892'];
 var previousSenders = ['Stephen', 'Carly', 'Clement', 'Mikey', 'Herman Melville'];
 var postContainer = document.getElementById('allcards');
+var imageContainer = document.getElementById('images');
+var messageContainer = document.getElementById('message');
 
 function makeRandom() {
   return Math.floor(Math.random() * Math.floor(postcardImages.length));
 } 
 
-function renderElement(newElement, obj, content) {
+function renderElement(newElement, parentElement, obj, content) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
     var childElement = document.createElement(newElement);
     childElement.src = obj;
-    postContainer.appendChild(childElement);
+    parentElement.appendChild(childElement);
   } else {
     var childElement = document.createElement(newElement);// for text
     childElement.textContent = obj;
-    postContainer.appendChild(childElement);
+    parentElement.appendChild(childElement);
   }
 }
 
@@ -57,9 +59,9 @@ function showStoredPostcard() {
 function showPreviousPostcards() {
   for (var i = 0; i < previousCardsToDisplay; i++) {
     renderPreviousCardImages();
-    renderElement('p', previousMessages[i], 'message');
-    renderElement('p', previousSenders[i], 'sender');
-    renderElement('p', previousPostmarks[i], 'postmark');
+    renderElement('p', messageContainer, previousMessages[i], 'message');
+    renderElement('p', messageContainer, previousSenders[i], 'sender');
+    renderElement('p', messageContainer, previousPostmarks[i], 'postmark');
   }
 }
 
@@ -72,9 +74,10 @@ function renderPreviousCardImages() {
     }
     queue.push(tempIndex);
   }
-  var allPostcardsContainer = document.getElementById('allcards'); // main body
+  // var allPostcardsContainer = document.getElementById('allcards'); // main body
   var postCard = document.createElement('section');
-  allPostcardsContainer.appendChild(postCard); // new card container
+  // allPostcardsContainer.appendChild(postCard); // new card container
+  imageContainer.appendChild(postCard);
   var imageOneEl = document.createElement('img'); // images
   var imageTwoEl = document.createElement('img');
   var imageThreeEl = document.createElement('img');
