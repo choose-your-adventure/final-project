@@ -1,5 +1,55 @@
-/* big box */
-/* from */
-/* message */
-/* stamp */
-/* images */
+body {
+  background: rgb(255, 255, 255);
+}
+
+#images>section:nth-child(1) {
+  border: 1px solid rgb(0, 0, 0);
+  padding: 18%;
+  margin: 10px;
+  background: url(../img/postcard.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  
+}
+
+#images>section:nth-child(1)>img:nth-child(1) {
+  border: 5px dashed red;
+  position: relative;
+  right: 140px;
+  top: -116px;
+}
+
+#images>section:nth-child(1)>img:nth-child(2) {
+  border: 5px solid indianred;
+  position: relative;
+  right: 62px;
+  top: -116px;
+}
+#images > section:nth-child(1) > img:nth-child(3){
+  border: 5px solid palegoldenrod;
+  position: relative;
+  right: 57%;
+  top: 100px;
+}
+#images > section:nth-child(1) > img:nth-child(4){
+  border: 5px solid magenta;
+  position: relative;
+  left: 91px;
+  bottom: -124px;
+}
+
+#images > section:nth-child(1) > img:nth-child(5){
+  border: 5px solid saddlebrown;
+  position: relative;
+  right: 51%;
+  bottom: -100px;
+}
+
+p {
+  display: block;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 14px;
+  margin: 0%;
+}
+
