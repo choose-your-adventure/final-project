@@ -1,49 +1,68 @@
 body {
-  background: rgb(255, 255, 255);
+  background: rgb(165, 172, 175);
+}
+h2{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 30px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-#images>section:nth-child(1) {
-  border: 1px solid rgb(0, 0, 0);
-  padding: 18%;
+#images>section {
+  border: 2mm ridge rgb(105, 190, 40);
+  /* padding: ; */
   margin: 10px;
   background: url(../img/postcard.png);
-  background-size: cover;
+  /* background-size: cover; */
   background-repeat: no-repeat;
   background-position: center center;
-  
+  width: 940px;
+  height: 530px;
 }
 
-#images>section:nth-child(1)>img:nth-child(1) {
-  border: 5px dashed red;
-  position: relative;
+#images>section>img {
+  border: 2px solid rgb(105, 190, 40);
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+#images>section>img:nth-child(1) {
+  /* border: 5px dashed red; */
+  /* position: relative;
   right: 140px;
-  top: -116px;
+  top: -116px; */
 }
 
-#images>section:nth-child(1)>img:nth-child(2) {
-  border: 5px solid indianred;
-  position: relative;
+#images>section>img:nth-child(2) {
+  /* border: 5px solid indianred; */
+  margin-right: 400px;
+  /* position: relative;
   right: 62px;
-  top: -116px;
-}
-#images > section:nth-child(1) > img:nth-child(3){
-  border: 5px solid palegoldenrod;
-  position: relative;
-  right: 57%;
-  top: 100px;
-}
-#images > section:nth-child(1) > img:nth-child(4){
-  border: 5px solid magenta;
-  position: relative;
-  left: 91px;
-  bottom: -124px;
+  top: -116px; */
 }
 
-#images > section:nth-child(1) > img:nth-child(5){
-  border: 5px solid saddlebrown;
-  position: relative;
-  right: 51%;
-  bottom: -100px;
+#images > section > img:nth-child(3) {
+  /* border: 5px solid palegoldenrod; */
+  margin-left: 155px;
+  margin-right: 490px;
+  /* position: relative;
+  right: 57px;
+  top: 100px; */
+}
+
+#images > section > img:nth-child(4) {
+  /* border: 5px solid magenta; */
+  /* position: relative;
+  left: 91px;
+  bottom: -124px; */
+}
+
+#images > section > img:nth-child(5) {
+  /* border: 5px solid saddlebrown; */
+  /* position: relative;
+  right: 51px;
+  bottom: -100px; */
 }
 
 p {
@@ -52,4 +71,3 @@ p {
   font-size: 14px;
   margin: 0%;
 }
-
