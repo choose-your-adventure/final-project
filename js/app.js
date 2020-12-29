@@ -49,6 +49,7 @@ function Instructions(name, image, text, extra) {
   this.extra = extra;
   allInstructions.push(this);
 }
+
 // Positive, Neutral, Challenge Encounters, challenges 2 levels deep
 function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.name = name;
@@ -57,7 +58,7 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.yes = yes;
   this.no = no;
   this.yesAttr = yesAttr;
-  this.noAttr = noAttr
+  this.noAttr = noAttr;
   allEncounters.push(this);
 }
 
@@ -67,16 +68,16 @@ new Adventure('Pike Place', 'pike-place.png', 'Long Descriptive Text about PIKE'
 new Adventure('Waterfront', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
 new Adventure('Gum Wall', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
 new Adventure('Pacific Science Center', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Museum of Pop Culture', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Museum of Flight', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Kubota Garden', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Fremont Troll', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Chihuli Museum of Glass', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Golden Gardens', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Seattle Art Museum', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Seattle Aquarium', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Ballard Locks', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
-new Adventure('Starbucks Reserve Roastery', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Museum of Pop Culture', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Museum of Flight', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Kubota Garden', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Fremont Troll', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Chihuli Museum of Glass', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Golden Gardens', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Seattle Art Museum', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Seattle Aquarium', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Ballard Locks', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
+// new Adventure('Starbucks Reserve Roastery', 'waterfront.png', 'Long Descriptive Text about WATERFRONT', 'Few people know X about Y.', 'Click THIS awesome choice!');
 
 
 new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city, to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go! Enjoy your time, hope you love Seattle!', 'THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT THIS IS OUR AMAZING STAR WARS SCROLLING INTRO TEXT');
@@ -97,7 +98,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
       var flipCard = document.createElement('div');
       flipCard.setAttribute('class', 'flip-card');
       parentElement.appendChild(flipCard);
-      var inner = document.createElement('div')
+      var inner = document.createElement('div');
       inner.setAttribute('class', 'flip-card-inner');
       flipCard.appendChild(inner);
       var front = document.createElement('div');
@@ -113,7 +114,7 @@ function renderElement(newElement, parentElement, obj, content, index) {
       back.setAttribute('class', 'flip-card-back');
       inner.appendChild(back);
       back.addEventListener('click', thumbClick);
-      var flipEl = document.createElement('p')
+      var flipEl = document.createElement('p');
       flipEl.textContent = obj.blurb;
       flipEl.setAttribute('class', 'text');
       back.appendChild(flipEl);
@@ -173,8 +174,8 @@ function enterGame() {
   for (var i = 0; i < allDestinations.length; i++) {
     remainingPlaces[i] = allDestinations[i];
   } // preserves original list of destinations and creates a working copy for user interaction
-  for (var i = 0; i < allEncounters.length; i++) {
-    remainingEncounters[i] = allEncounters[i];
+  for (var j = 0; j < allEncounters.length; j++) {
+    remainingEncounters[j] = allEncounters[j];
   }
   renderElement('h2', headerContainer, allInstructions[1], 'name');
   renderElement('img', imageContainer, allInstructions[1], 'image');
@@ -191,9 +192,36 @@ function renderThumbnails() {
 
 function thumbClick(event) {   // user has clicked thumbnail to choose next destination.
   actualScenes++;
-  if (actualScenes < maxScenes) {    // selection ends after 5 are chosen; users is presented with postcard form 
+  if (actualScenes === maxScenes) {    // selection ends after 5 are chosen; users is presented with postcard form 
     var clickedDestination = event.target.alt;
     var popIndex = null;
+    // actualScenes++;
+    console.log(actualScenes);
+    for (var i = 0; i < remainingPlaces.length; i++) {
+      if (clickedDestination === remainingPlaces[i].name) {
+        popIndex = i;
+        console.log(i);
+      }
+    }
+    pickedPlace = remainingPlaces.splice(popIndex, 1);
+    chosenPlaces.push(pickedPlace);
+    console.log(chosenPlaces);
+    console.log(actualScenes);
+    var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    localStorage.setItem('chosenimages', stringifiedPlaces);
+    renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
+    renderThumbnails();
+    showNextScene();
+    setTimeout(postcardInput, 5000);
+
+    // postcardInput();
+  }
+
+  else if (actualScenes <= maxScenes) {    // selection ends after 5 are chosen; users is presented with postcard form 
+    clickedDestination = event.target.alt;
+    popIndex = null;
+    // actualScenes++;
+    console.log(actualScenes);
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
@@ -251,7 +279,7 @@ function encounterButtonYesClick(event) { // --------- for YES clicks
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'yes');
   // you earned __
   eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!';
-  encounterBadges.push(currentEncounterIndex.yesAttr)
+  encounterBadges.push(currentEncounterIndex.yesAttr);
   encounterFinished();
 }
 
@@ -259,7 +287,7 @@ function encounterButtonNoClick(event) { // -------- for NO clicks
   event.preventDefault();
   eventContainer.innerHTML = '';
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'no');
-  encounterBadges.push(currentEncounterIndex.noAttr)
+  encounterBadges.push(currentEncounterIndex.noAttr);
   eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].noAttr + ' badge!';
   encounterFinished();
 }
@@ -320,7 +348,7 @@ function revealPostcard() {
   viewAll.title = 'Click Here to see all previous postcards from fellow travelers';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
-};
+}
 
 if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button

@@ -107,11 +107,13 @@ main li {
   float: left;
   padding-bottom: 25px;
 }
+
 #selectioncontainer {
   /* margin-left: 0px; */
   margin-left: auto;
   padding-bottom: 25px;
 }
+
 #headercontainer {
   display: block;
 }
@@ -119,6 +121,11 @@ main p {
   font-size: 1.25em;
   padding-bottom: 20px;
 }
+
+#formcontainer {
+  
+}
+
 #eventcontainer {
   margin-left: 75px;
   margin-right: 75px;
