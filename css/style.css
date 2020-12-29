@@ -118,6 +118,7 @@ main li {
   float: left;
   padding-bottom: 25px;
 }
+
 #selectioncontainer {
   /* margin-left: 0px; */
   margin-left: auto;
@@ -126,11 +127,14 @@ main li {
 
 #headercontainer {
   display: block;
-
 }
 main p {
   font-size: 1.25em;
   padding-bottom: 20px;
+}
+
+#formcontainer {
+  
 }
 
 #eventcontainer {
@@ -238,11 +242,38 @@ h5 {
   font-size: 2em;
   margin: 30px;
   text-shadow: 2px 2px rgb(3, 34, 68);
+  padding: 15px;
+}
+h2 {
+  font-size: 1.3em;
 }
 .team-container {
   padding: 0 16px;
   height: 350px;
 }
+
+.img-wrap {
+  position: relative;
+  margin: auto;
+}
+
+.img-text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(105, 190, 40, 0.9);
+  color: rgb(3, 34, 68);
+  visibility: hidden;
+  transition: opacity .1s, visibility .1s;
+}
+
+.img-wrap:hover .img-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .bio {
   height: 180px;
 }
