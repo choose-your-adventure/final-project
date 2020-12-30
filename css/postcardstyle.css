@@ -66,8 +66,18 @@ h2{
 }
 
 p {
-  display: block;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 14px;
-  margin: 0%;
+  font-size: 12px;
+}
+
+.message {
+  float: right;
+  /* margin-top: 100px; */
+  margin-right: 50px;
+  width: 380px;
+  height: 150px;
+}
+.message p {
+  height: 2.5em;
+  /* line-height: 2.5em; */
 }
