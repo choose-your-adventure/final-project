@@ -1,12 +1,18 @@
 body {
   background: rgb(165, 172, 175);
 }
+h1{
+  text-align: center;
+  padding: 20px;
+  font-family: 'Ultra', serif;
+  font-size: xx-large;
+}
 h2{
   margin-top: 15px;
   margin-bottom: 10px;
   text-align: center;
   font-size: 30px;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
 }
 
 #images>section {
@@ -66,8 +72,9 @@ h2{
 }
 
 p {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  font-size: 12px;
+  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
 }
 
 .message {
@@ -78,6 +85,6 @@ p {
   height: 150px;
 }
 .message p {
-  height: 2.5em;
+  height: 2.6em;
   /* line-height: 2.5em; */
 }
