@@ -10,16 +10,16 @@ var allAdventurers = [];
 // var storedPostcardMessage = localStorage.getItem('postcardmessage');
 // var postmark = localStorage.getItem('postmark');
 var previousCardsToDisplay = 5;
-var postcardImages = ['thumbs/space-needle.png', 'thumbs/seattle-sunset.png', 'thumbs/great-wheel.png', 'thumbs/pike-place.png', 'thumbs/waterfront.png'];
+var postcardImages = ['thumbs/artmuseum.jpg', 'thumbs/ballardlocks.jpg', 'thumbs/chihuly.jpg', 'thumbs/flight.jpg', 'thumbs/golden-gardens.jpg', 'thumbs/gumwall.jpg'];
 var previousMessages = ['I got hit in the face by a fish but it\'s all good!', 'Wow! Changed my life. I\'ll never forget this trip.', 'With love from Seattle!', 'There are over 100 words for fog in Seattle!', 'I can\'t wait to get back to Seattle someday.', 'It\'s cold and dark and I want to come home.'];
-var previousPostmarks = ['11/11/1997', '5/13/2010', '2/1/2017', '9/22/2019', '12/31/1892'];
+var previousPostmarks = ['9/22/2019', '2/1/2017', '5/13/2010', '11/11/1997', '12/31/1892'];
 var previousSenders = ['Stephen', 'Carly', 'Clement', 'Mikey', 'Herman Melville'];
 var postContainer = document.getElementById('allcards');
 var imageContainer = document.getElementById('images');
 // var messageContainer = document.getElementById('message');
 
 function makeRandom() {
-  return Math.floor(Math.random() * Math.floor(postcardImages.length));
+  return Math.floor(Math.random() * Math.floor(5));
 }
 
 function renderElement(newElement, parentElement, obj, content) {
