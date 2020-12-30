@@ -12,6 +12,7 @@ var allInstructions = [];
 var postcardMessage = '';
 var storedUserName = localStorage.getItem('username');
 //var thumbIndex = 0;
+var thumbnailsToDisplay = 10;
 
 var date = new Date();
 var postmark = date.toLocaleDateString(); // get local date/time for message postmark
@@ -82,8 +83,7 @@ new Adventure('Ballard Locks', 'ballardlocks.jpg', 'Construction of the Lake Was
 new Adventure('Seattle Aquarium', 'seattle-aquarium.jpg', 'Opened in 1977, the Seattle Aquarium was owned and operated by the City of Seattle Department of Parks and Recreation until 2010 when the nonprofit Seattle Aquarium Society assumed its management. In 2007, the Aquarium opened a major expansion adding 18,000 square feet of space including a 120,000 gallon exhibit. The Seattle Aquarium is the ninth largest aquarium in the U.S. by attendance, and has hosted over 27 million visitors and provided marine conservation education to over two million school children since its opening. The animal collection is housed within six major exhibits: Window on Washington, Life on the Edge, Pacific Coral Reef, Birds and Shores, Underwater Dome and Marine Mammals.', 'Great waterfront attraction!', 'Dozens of marine species, great stop for kids!');
 new Adventure('Starbucks Reserve Roastery', 'starbucks.jpg', 'First opened in Seattle’s Capitol Hill neighborhood in December 2014, the Roastery is an immersive and dramatic expression of Starbucks passion for coffee. Located just nine blocks from the original Starbucks Pike Place store, this is a great stop for any coffee lover. Rare Starbucks reserve coffees are roasted on site and eight distinctive coffee-prep methods are on display to watch, taste, and learn. The entire coffee making process unfolds within the building, raw green coffee beans stored in massive silos are roasted, ground and brewed in an industrial assembly line that winds, dips and soars across the entire space.', 'The whole coffee process!', 'Beautiful location with a detailed look at coffee. Something for everyone to enjoy!');
 
-
-new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', '');
+new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', ''); // ----- ADD MOUSEOVER TEXT TO THESE ----
 new Instructions('How To Play', 'skyline2.jpg', 'Our virtual travel agency has arranged for you to tour a total of five destinations in Seattle. Click any of the image thumbnails at the top of the screen to visit that destination. While there, simply click the big image to be taken to a chance encounter along your way.');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?');
 new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
@@ -196,7 +196,7 @@ function enterGame() {
 function renderThumbnails() {
   selectionContainer.innerHTML = '';
   for (var i = 0; i < remainingPlaces.length; i++) {
-    renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i);
+    renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i); // render only ten, using thumbnailsToDisplay to iterate
   }
 }
 
@@ -215,15 +215,16 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
-    renderThumbnails();
-    showNextScene();
+   // renderThumbnails();
+selectionContainer.innerHTML='';
+   showNextScene();
 
-    setTimeout(postcardInput, 5000);
-
+    //    setTimeout(postcardInput, 5000);
+pauseOnLast();
     // postcardInput();
   }
 
-  else if (actualScenes <= maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form 
+  else if (actualScenes < maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form 
     clickedDestination = event.currentTarget.id;
     popIndex = null;
     // actualScenes++;
@@ -240,22 +241,22 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     renderThumbnails();
     showNextScene();
   } else {
-//pauseOnLast();    this is a good idea if i can load it from the first one without doubling. set a counter to iterate from first one..?
+    // pauseOnLast(); this is a good idea if i can load it from the first one without doubling.set a counter to iterate from first one..?
     //    postcardInput();
   }
 }
 
-// function pauseOnLast(){
-//   var continueButton = document.createElement('a');
-//   continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
-//   continueButton.title = 'Click to Continue';
-//   var button = document.createTextNode('Next Page');
-//   continueButton.appendChild(button);
-//   eventContainer.appendChild(continueButton);
-//   //document.removeEventListener('click', clickBigImage); // prevents accidentally clicking away
-//   continueButton.addEventListener('click', postcardInput);
+function pauseOnLast(){
+  var continueButton = document.createElement('a');
+  continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  continueButton.title = 'Click to Continue';
+  var button = document.createTextNode('Next Page');
+  continueButton.appendChild(button);
+  eventContainer.appendChild(continueButton);
+  //document.removeEventListener('click', clickBigImage); // prevents accidentally clicking away
+  continueButton.addEventListener('click', postcardInput);
 
-// }
+}
 
 function showNextScene() {
   destinationsLeft = maxScenes - actualScenes; // count down for sake of displaying how many are left
