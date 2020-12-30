@@ -7,19 +7,21 @@ main section with text input field which upon submission appends to postcard ele
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Ultra&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Ultra&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/postcardstyle.css">
   <title>Postcard From Seattle Adventure</title>
   <span>
-    
+
   </span>
 </head>
+
 <body>
   <header>
     <nav>
@@ -28,18 +30,26 @@ main section with text input field which upon submission appends to postcard ele
       <span><a href="postcard.html">Postcard</a></span>
     </nav>
   </header>
-  <main><h1>Choose Your Own Seattle Adventure</h1>
-    <h2>Wow, you're in good company. Check out these other awesome postcards.</h2>
-<section id="allcards">
-  <div id="images">
-  </div>
-  <!-- <div id="message">
+  <main>
+    <h1>Thank you for traveling with us</h1>
+    <h2>This first ones yours, checkout some of the other incredible options below it</h2>
+    <button type="button" class="refresh" onclick="location.href='postcard.html'">
+      Change Image Locations &raquo;
+    </button>
+    <section id="allcards">
+      <div id="images">
+      </div>
+      <!-- <div id="message">
   </div> -->
-</section>
+    </section>
   </main>
   <footer>
-
+    Created by Carly, Clement, Mikey, and Stephen for Code 201 Final Project
+    <button type="button" class="playAgain" onclick="location.href='index.html'">
+      Play Again &raquo;
+    </button>
   </footer>
   <script src="js/results.js"></script>
 </body>
+
 </html>
