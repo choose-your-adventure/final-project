@@ -1,5 +1,6 @@
 'use strict';
 
+var badge;
 var pickedPlace = [];
 var maxScenes = 5;
 var actualScenes = 0;
@@ -10,12 +11,16 @@ var remainingPlaces = []; //This array is used to populate the thumnails of rema
 var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
-var storedUserName = localStorage.getItem('username');
-//var thumbIndex = 0;
+var storedUserName = localStorage.getItem('username'); ///--------trying it this way to avoid new error when somethign is in localstor----
+// var storedUserName = JSON.parse(localStorage.getItem('username'));
 var thumbnailsToDisplay = 10;
-
+var storedPostcardImages = [];
+var storedPostcardMessage = '';
+var allAdventurers = JSON.parse(localStorage.getItem('adventurers')) || [];
+console.log('You are here', allAdventurers);
 var date = new Date();
-var postmark = date.toLocaleDateString(); // get local date/time for message postmark
+var unstringifiedPostmark = date.toLocaleDateString();
+var postmark = JSON.stringify(unstringifiedPostmark); // get local date/time for message postmark
 localStorage.setItem('postmark', postmark);
 
 var allEncounters = [];
@@ -46,6 +51,14 @@ function Adventure(name, image, text, blurb, teaser) { // teaser on mouseover, b
   allDestinations.push(this);
 }
 
+function Adventurer(username, postmark, images, message) {
+  this.username = username;
+  this.postmark = postmark;
+  this.images = images;
+  this.message = message;
+  allAdventurers.unshift(this);
+}
+
 function Instructions(name, image, text, extra) {
   this.name = name;
   this.image = `img/${image}`;
@@ -55,7 +68,7 @@ function Instructions(name, image, text, extra) {
 }
 
 // Positive, Neutral, Challenge Encounters, challenges 2 levels deep
-function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
+function Encounter(name, encounter, text, yes, no, yesAttr, noAttr, yesBadge, noBadge) {
   this.name = name;
   this.encounter = `img/${encounter}`; // image
   this.text = text; // description leading to choice
@@ -63,6 +76,8 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.no = no;
   this.yesAttr = yesAttr; // badge if yes/no
   this.noAttr = noAttr;
+  this.yesBadge = `img/${yesBadge}`;
+  this.noBadge = `img/${noBadge}`;
   allEncounters.push(this);
 }
 
@@ -81,20 +96,20 @@ new Adventure('Golden Gardens', 'golden-gardens.jpg', 'Popular sandy beach attra
 new Adventure('Seattle Art Museum', 'artmuseum.jpg', 'Located in the heart of downtown, Seattle Art Museum (SAM) has numerous collections, temporary installations and special exhibitions from around the world. Collections include Asian, African, Ancient American, Ancient Mediterranean, Islamic, European, Oceanic, Asian, American, modern and contemporary art, and decorative arts and design. Additional affiliated attractions include the Asian Art Museum which resides in the SAM landmark 1933 Art Deco building on Capitol Hill, as well as the Olympic Sculpture Park, an award winning nine-acre outdoor park on the waterfront that is free and open to the public to enjoy.', 'Beautiful museum in downtown.', 'Amazing exhibits from around the world.');
 new Adventure('Ballard Locks', 'ballardlocks.jpg', 'Construction of the Lake Washington Ship Canal and Hiram M. Chittenden Locks was completed in 1917 by the U.S Army Corps of Engineers. Created for three main purposes: maintaining the water level of fresh water in Lake Washington and Lake Union at 20-22 feet above sea level, preventing the mixing of sea water with fresh water, and to move boats from the water level of the lakes to the water level of Puget Sound and vice versa. The Locks connect the waters of Lake Washington, Lake Union, and Salmon Bay to the tidal waters of Puget Sound, and allow recreational and commercial vessels to travel to the docks and warehouses of the harbor in Seattle. The complex includes two locks, one small and one large, as well as a spillway with six gates to assist in water-level control. A fish ladder is integrated into the locks for migration of fish as well.', 'Boats, water, and fish!', 'Interesting destination and amazing engineering!');
 new Adventure('Seattle Aquarium', 'seattle-aquarium.jpg', 'Opened in 1977, the Seattle Aquarium was owned and operated by the City of Seattle Department of Parks and Recreation until 2010 when the nonprofit Seattle Aquarium Society assumed its management. In 2007, the Aquarium opened a major expansion adding 18,000 square feet of space including a 120,000 gallon exhibit. The Seattle Aquarium is the ninth largest aquarium in the U.S. by attendance, and has hosted over 27 million visitors and provided marine conservation education to over two million school children since its opening. The animal collection is housed within six major exhibits: Window on Washington, Life on the Edge, Pacific Coral Reef, Birds and Shores, Underwater Dome and Marine Mammals.', 'Great waterfront attraction!', 'Dozens of marine species, great stop for kids!');
-new Adventure('Starbucks Reserve Roastery', 'starbucks.jpg', 'First opened in Seattle’s Capitol Hill neighborhood in December 2014, the Roastery is an immersive and dramatic expression of Starbucks passion for coffee. Located just nine blocks from the original Starbucks Pike Place store, this is a great stop for any coffee lover. Rare Starbucks reserve coffees are roasted on site and eight distinctive coffee-prep methods are on display to watch, taste, and learn. The entire coffee making process unfolds within the building, raw green coffee beans stored in massive silos are roasted, ground and brewed in an industrial assembly line that winds, dips and soars across the entire space.', 'The whole coffee process!', 'Beautiful location with a detailed look at coffee. Something for everyone to enjoy!');
+// new Adventure('Starbucks Reserve Roastery', 'starbucks.jpg', 'First opened in Seattle’s Capitol Hill neighborhood in December 2014, the Roastery is an immersive and dramatic expression of Starbucks passion for coffee. Located just nine blocks from the original Starbucks Pike Place store, this is a great stop for any coffee lover. Rare Starbucks reserve coffees are roasted on site and eight distinctive coffee-prep methods are on display to watch, taste, and learn. The entire coffee making process unfolds within the building, raw green coffee beans stored in massive silos are roasted, ground and brewed in an industrial assembly line that winds, dips and soars across the entire space.', 'The whole coffee process!', 'Beautiful location with a detailed look at coffee. Something for everyone to enjoy!');
 
-new Instructions('Welcome to our Adventure in Seattle Game!', 'skyline.jpg', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', ''); // ----- ADD MOUSEOVER TEXT TO THESE ----
-new Instructions('How To Play', 'skyline2.jpg', 'Our virtual travel agency has arranged for you to tour a total of five destinations in Seattle. Click any of the image thumbnails at the top of the screen to visit that destination. While there, simply click the big image to be taken to a chance encounter along your way.');
+new Instructions('Welcome to our Adventure in Seattle Game!', 'logo.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', ''); 
+new Instructions('How To Play', 'logo.png', 'Our virtual travel agency has arranged for you to tour a total of five destinations in Seattle. Click any of the image thumbnails at the top of the screen to visit that destination. \n If you would like to have a random chance encounter while touring each of your five destinations, simply click the big image and something fun will happen.');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?');
-new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below if you\'d like to see postcards from previous travellers.');
-new Instructions('Welcome back!', 'skyline.jpg', 'If you\'d like to play again, please enter your desired username for this journey.');
+new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below to see your postcard along with those from previous travellers.');
+new Instructions('Welcome back!', 'logo.png', 'If you\'d like to play again, please enter your desired username for this journey.');
 
 // should something like this be stored in separate JSON file instead?
-new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light');
-new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly');
-new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate');
-new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', '"Hey, thanks!" you say, taking the man\'s extra jersey. He smiles and heads off. His generosity leaves you feeling optimistic about what might come next.', '"Oh, no thanks," you reply, turning him down. "I\'m more of a soccer/tennis/bird-watcher anyway. I appreciate the offer, though."', 'Sports Fan', 'Bird Lover');
-new Encounter('Discovery', 'wallet.jpg', 'While out and about, you come across a wallet. Checking inside, you find $40, but no cards or other forms of identification. There is a Lost and Found box not too far away. Do you return the $40 along with the wallet?', 'You decide that the Golden Rule applies here. If it had been your wallet, you would appreciate any chance of recovering its contents.', 'Deciding that it would be unlikely for a wallet without identification to be found by its proper owner, you pocket the cash.', 'Honest Abe', 'Finder\'s Keepers');
+new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light', 'badge-fish.png', 'badge-travel.png');
+new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly', 'badge-positive2.png', 'badge-neg2.png');
+new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate', 'badge-positive.png', 'badge-neg2.png');
+new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', '"Hey, thanks!" you say, taking the man\'s extra jersey. He smiles and heads off. His generosity leaves you feeling optimistic about what might come next.', '"Oh, no thanks," you reply, turning him down. "I\'m more of a soccer/tennis/bird-watcher anyway. I appreciate the offer, though."', 'Sports Fan', 'Bird Lover', 'badge-sports.png', 'badge-bird.png');
+new Encounter('Discovery', 'wallet.jpg', 'While out and about, you come across a wallet. Checking inside, you find $40, but no cards or other forms of identification. There is a Lost and Found box not too far away. Do you return the $40 along with the wallet?', 'You decide that the Golden Rule applies here. If it had been your wallet, you would appreciate any chance of recovering its contents.', 'Deciding that it would be unlikely for a wallet without identification to be found by its proper owner, you pocket the cash.', 'Honest Abe', 'Finder\'s Keepers', 'badge-honest.png', 'badge-finders.png');
 
 function renderElement(newElement, parentElement, obj, content, index) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
@@ -134,16 +149,19 @@ function renderElement(newElement, parentElement, obj, content, index) {
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.image;
-    childElement.title = obj.teaser;
-    childElement.alt = obj.name;
+    // childElement.title = obj.teaser;
+    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
-    childElement.addEventListener('click', clickBigImage);
+    // conditional -- if count ===0, don't show this:
+    if (destinationsLeft > 0) {
+      childElement.addEventListener('click', clickBigImage);
+    }
   } else if (newElement === 'img' && content === 'encounter') {// for encounter images
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.encounter;
-    childElement.title = obj.teaser;
-    childElement.alt = obj.name;
+    // childElement.title = obj.teaser;
+    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
 
   } else {
@@ -169,7 +187,8 @@ function beginAdventure() {
 
 function inputName(event) {
   event.preventDefault();
-  userName = event.target.username.value;
+  userName = JSON.stringify(event.target.username.value);
+  storedUserName = event.target.username.value;
   localStorage.setItem('username', userName);
   eventContainer.innerHTML = '';
   enterGame();
@@ -211,17 +230,15 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
-    chosenPlaces.push(pickedPlace);
+    chosenPlaces.push(pickedPlace[0]);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    storedPostcardImages = chosenPlaces;
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
-   // renderThumbnails();
-selectionContainer.innerHTML='';
-   showNextScene();
-
-    //    setTimeout(postcardInput, 5000);
-pauseOnLast();
-    // postcardInput();
+    // renderThumbnails();
+    selectionContainer.innerHTML = '';
+    showNextScene();
+    pauseOnLast();
   }
 
   else if (actualScenes < maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form 
@@ -234,23 +251,22 @@ pauseOnLast();
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
-    chosenPlaces.push(pickedPlace);
-    var stringifiedPlaces = JSON.stringify(chosenPlaces);
-    localStorage.setItem('chosenimages', stringifiedPlaces);
+    chosenPlaces.push(pickedPlace[0]);
+    console.log(pickedPlace);
+    // var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    // localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
   } else {
-    // pauseOnLast(); this is a good idea if i can load it from the first one without doubling.set a counter to iterate from first one..?
-    //    postcardInput();
   }
 }
 
-function pauseOnLast(){
+function pauseOnLast() {
   var continueButton = document.createElement('a');
   continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   continueButton.title = 'Click to Continue';
-  var button = document.createTextNode('Next Page');
+  var button = document.createTextNode('Next: Your Personal Message');
   continueButton.appendChild(button);
   eventContainer.appendChild(continueButton);
   //document.removeEventListener('click', clickBigImage); // prevents accidentally clicking away
@@ -307,7 +323,11 @@ function encounterButtonYesClick(event) { // --------- for YES clicks
   eventContainer.innerHTML = '';
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'yes');
   // you earned __
-  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!';
+  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!'; 
+  imageContainer.innerHTML = '';
+  var badgeEl = document.createElement('img');
+  badgeEl.src = remainingEncounters[currentEncounterIndex].yesBadge;
+  eventContainer.appendChild(badgeEl);
   encounterBadges.push(currentEncounterIndex.yesAttr);
   encounterFinished();
 }
@@ -318,21 +338,25 @@ function encounterButtonNoClick(event) { // -------- for NO clicks
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'no');
   encounterBadges.push(currentEncounterIndex.noAttr);
   eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].noAttr + ' badge!';
+  imageContainer.innerHTML = '';
+  var badgeEl = document.createElement('img');
+  badgeEl.src = remainingEncounters[currentEncounterIndex].noBadge;
+  eventContainer.appendChild(badgeEl);
   encounterFinished();
 }
 
 function encounterFinished() {
   //"choose your next destination"
   headerContainer.innerHTML = '';
-  var next = document.createElement('h2');
+  var next = document.createElement('h3');
   next.textContent = 'Click any thumbnail to select your next destination.';
-  headerContainer.appendChild(next);
+  eventContainer.appendChild(next);
   renderThumbnails();
 }
 
-function tallyEncounterBadges() { // -------- at end, to store and render with postcard.
-  console.log(encounterBadges);
-}
+// function tallyEncounterBadges() { // -------- at end, to store and render with postcard.
+//   console.log(encounterBadges);
+// }
 
 function postcardInput() {
   selectionContainer.innerHTML = '';
@@ -346,70 +370,75 @@ function postcardInput() {
 
 function postcardPull(event) {
   event.preventDefault();
-  postcardMessage = event.target.postcardinput.value;
+  postcardMessage = JSON.stringify(event.target.postcardinput.value);
+  storedPostcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
   finalForm.setAttribute('style', 'display:none;');
+  new Adventurer(storedUserName, unstringifiedPostmark, storedPostcardImages, storedPostcardMessage);
+  localStorage.setItem('adventurers', JSON.stringify(allAdventurers));
+  console.log(allAdventurers);
   revealPostcard();
+  // showStoredPostcard();
 }
 
 function revealPostcard() {
   eventContainer.innerHTML = '';
-  imageContainer.innerHTML = '';
+  renderElement('img', imageContainer, allInstructions[2], 'image');
+  descriptionContainer.innerHTML = 'On the next screen you will see your custom postcard. . .';
   travelledToContainer.innerHTML = '';
-  renderElement('h2', headerContainer, allInstructions[3], 'name');
-  renderElement('p', descriptionContainer, allInstructions[3], 'text');
-  var cardTextEl = document.createElement('p');
-  cardTextEl.textContent = postcardMessage + ' ' + postmark;
-  cardTextEl.setAttribute('id', 'postcardmessage');
-  imageContainer.appendChild(cardTextEl);
-  var cardFromEl = document.createElement('p');
-  cardFromEl.textContent = '--- ' + userName;
-  cardFromEl.setAttribute('id', 'postcardusername'); // for CSS styling
-  imageContainer.appendChild(cardFromEl);
-  // render badges from array  called encounterBadges
-  for (var i = 0; i < chosenPlaces.length; i++) {
-    var childElement = document.createElement('img');
-    childElement.src = chosenPlaces[i][0].thumbnail;
-    imageContainer.appendChild(childElement);
-  }
-  var viewAll = document.createElement('a');
+  var viewAll = document.createElement('a'); //--this is the one to potentially combine with the finalForm button------
   viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
-  viewAll.title = 'Click Here to how awesome your postcard is compared to those from previous travelers';
+  viewAll.title = 'Click Here!';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
+  // displays postcard elements from array, not localstorage----
+  // renderElement('h2', headerContainer, allInstructions[3], 'name');
+  // renderElement('p', descriptionContainer, allInstructions[3], 'text');
+  // var cardTextEl = document.createElement('p');
+  // cardTextEl.textContent = postcardMessage + ' ' + postmark;
+  // cardTextEl.setAttribute('id', 'postcardmessage');
+  // imageContainer.appendChild(cardTextEl);
+  // var cardFromEl = document.createElement('p');
+  // cardFromEl.textContent = '--- ' + userName;
+  // cardFromEl.setAttribute('id', 'postcardusername'); // for CSS styling
+  // imageContainer.appendChild(cardFromEl);
+  // // render badges from array  called encounterBadges
+  // for (var i = 0; i < chosenPlaces.length; i++) {
+  //   var childElement = document.createElement('img');
+  //   childElement.src = chosenPlaces[i][0].thumbnail;
+  //   imageContainer.appendChild(childElement);
+  // }
+
 }
 
 //
 
-function showStoredPostcard() {
-  if (storedUserName && storedImages && storedPostcardMessage) {
-    var parsedUserName = JSON.parse(storedUserName);
-    var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
-    var parsedMessage = JSON.parse(storedPostcardMessage);
-  } else {
-    previousCardsToDisplay = 5;
-  }
-  // render the user's postcard
-}
+// function showStoredPostcard() {
+//   // if (storedUserName && storedImages && storedPostcardMessage) {
+//   //   var parsedUserName = JSON.parse(storedUserName);
+//   //   var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
+//   //   var parsedMessage = JSON.parse(storedPostcardMessage);
+//   // } else {
+//   //   previousCardsToDisplay = 5;
+//   // }
+//   // render the user's postcard
+//   var retrievedMessage = localStorage.getItem('postcardmessage');
+//   var retrievedImages = localStorage.getItem('chosenimages');
+//   console.log('we are here', retrievedMessage);
+//   storedPostcardMessage = JSON.parse(retrievedMessage);///--- not defined
+//   storedPostcardImages = JSON.parse(retrievedImages);
+//   var retrievedName = localStorage.getItem('username');
+//   storedUserName = JSON.parse(retrievedName);
+//   for (var i = 0; i < storedPostcardImages.length; i++) {
+//     var childElement = document.createElement('img');
+//     childElement.src = storedPostcardImages[i].thumbnail;
+//     eventContainer.appendChild(childElement);
+//   }
 
-// var retrievedMessage = localStorage.getItem('postcardmessage');
-// var retrievedImages = localStorage.getItem('chosenimages');
-// storedPostcardMessage = JSON.parse(retrievedMessage);
-// storedPostcardImages = JSON.parse(retrievedImages);
-// var retrievedName = localStorage.getItem('username');
-// storedUserName = JSON.parse(retrievedName);
-// // renders the postcard. (plus a timestamp would be cool).
-// for (var i = 0; i < storedPostcardImages.length; i++) {
-//   var childElement = document.createElement('img');
-//   childElement.src = storedPostcardImages[i].thumbnail;
-//   eventContainer.appendChild(childElement);
 // }
 
-
-
-//
 if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
@@ -419,7 +448,7 @@ if (storedUserName) {
   welcome.textContent = allInstructions[0]['extra'];
   //  welcome.setAttribute('class', 'star-wars crawl');
   imageContainer.appendChild(welcome);
-  // renderElement('img', imageContainer, allInstructions[4], 'image');
+  renderElement('img', imageContainer, allInstructions[4], 'image');
   renderElement('p', descriptionContainer, allInstructions[4], 'text');
   eventContainer.addEventListener('submit', inputName);
 } else {
