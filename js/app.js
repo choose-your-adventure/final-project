@@ -208,7 +208,7 @@ function enterGame() {
 
 function renderThumbnails() {
   selectionContainer.innerHTML = '';
-  for (var i = 0; i < remainingPlaces.length; i++) {
+  for (var i = 0; i < 15; i++) {
     renderElement('img', selectionContainer, remainingPlaces[i], 'thumbnail', i); // render only ten, using thumbnailsToDisplay to iterate
   }
 }
@@ -434,7 +434,7 @@ if (storedUserName) {
   welcome.textContent = allInstructions[0]['extra'];
   //  welcome.setAttribute('class', 'star-wars crawl');
   imageContainer.appendChild(welcome);
-  // renderElement('img', imageContainer, allInstructions[4], 'image');
+  renderElement('img', imageContainer, allInstructions[4], 'image');
   renderElement('p', descriptionContainer, allInstructions[4], 'text');
   eventContainer.addEventListener('submit', inputName);
 } else {
