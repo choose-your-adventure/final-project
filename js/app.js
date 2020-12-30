@@ -183,7 +183,6 @@ function beginAdventure() {
   imageContainer.appendChild(logoEl);
   var welcome = document.createElement('p');
   welcome.textContent = allInstructions[0]['extra'];
-  //  welcome.setAttribute('class', 'star-wars crawl');
   imageContainer.appendChild(welcome);
   renderElement('p', descriptionContainer, allInstructions[0], 'text');
   eventContainer.addEventListener('submit', inputName);
@@ -269,7 +268,7 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
 
 function pauseOnLast() {
   var continueButton = document.createElement('a');
-  continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  // continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   continueButton.title = 'Click to Continue';
   var button = document.createTextNode('Next: Your Personal Message');
   continueButton.appendChild(button);
@@ -308,8 +307,10 @@ function clickBigImage(event) {  // flip image to trigger Encounter
   eventContainer.innerHTML = '';
   var optionYes = document.createElement('a');
   var optionNo = document.createElement('a');
-  optionNo.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
-  optionYes.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  // optionNo.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  // optionYes.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  optionNo.setAttribute('class', 'optionbutton')
+  optionYes.setAttribute('class', 'optionbutton')
   optionYes.title = 'If Yes';
   optionNo.title = 'If No';
   var yes = document.createTextNode('Yes');
@@ -392,7 +393,8 @@ function revealPostcard() {
   descriptionContainer.innerHTML = 'On the next screen you will see your custom postcard. . .';
   travelledToContainer.innerHTML = '';
   var viewAll = document.createElement('a'); //--this is the one to potentially combine with the finalForm button------
-  viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  // viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+  viewAll.setAttribute('class', 'optionbutton');
   var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
   viewAll.title = 'Click Here!';
@@ -451,7 +453,6 @@ if (storedUserName) {
   imageContainer.innerHTML = '';
   var welcome = document.createElement('p');
   welcome.textContent = allInstructions[0]['extra'];
-  //  welcome.setAttribute('class', 'star-wars crawl');
   imageContainer.appendChild(welcome);
 //  renderElement('img', imageContainer, allInstructions[4], 'image');
   var logoEl = document.createElement('img');
