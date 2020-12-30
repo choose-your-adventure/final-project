@@ -2,6 +2,7 @@
 /* Home Page */
 
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
 
 body {
   font-family: 'Gothic A1', sans-serif;
@@ -15,17 +16,38 @@ body {
 }
 #home {
   font-size: 3em;
+  text-align: center;
+  padding-top: 15px;
+  font-family: 'Ultra', serif;
+  color:rgb(3, 34, 68);
+}
+
+#headercontainer h2 {
+  font-size: 1.25em;
+  text-align: center;
+  color:rgb(3, 34, 68);
 }
 
 .text {
   font-size: 1em;
 }
+
+
 .flip-card {
   background-color: transparent;
   width: 150px;
   height: 150px;
   perspective: 1000px;
+  display: inline-block;
+  margin-left: 35px;
+  margin-bottom: 10px;
 }
+
+/* may need to adjust*/
+.flip-card:nth-child(1) {
+  margin-top: 35px;
+}
+
 .flip-card-inner {
   position: relative;
   width: 150px;
@@ -35,9 +57,11 @@ body {
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
+
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 150px;
@@ -45,33 +69,49 @@ body {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
 .flip-card-front {
   background-color: #bbb;
   color: black;
 }
+
 .flip-card-back {
   background-color: rgb(105, 190, 40);
   color: rgb(3, 34, 68);
   transform: rotateY(180deg);
+  font-size: 16px;
+  text-align: center;
+  padding: 15px;
 }
+
+#imagecontainer img {
+  width: 960px;
+  margin: auto;
+  padding-top: 10px;
+}
+
 .displayed {
   display: block;
   margin-left: auto;
   margin-right: auto 
 }
+
 header {
   background-color: rgb(3, 34, 68);
   height: 55px;
 }
+
 header nav {
   width: 960px;
   margin: auto;
 }
+
 header span {
   display: inline-block;
   line-height: 50px;
   margin: 0 100px;
 }
+
 nav a {
   transition: 0.001s;
   color: rgb(105, 190, 40);;
@@ -80,16 +120,19 @@ nav a {
   padding: 0 10px;
   margin: 0 auto;
 }
+
 nav a:hover {
   background-color: rgb(105, 190, 40);
   color: rgb(3, 34, 68);
   padding: 20px 10px;
 }
+
 i {
   color: rgb(3, 34, 68);
   font-size: 1em;
   margin: 4px;
 }
+
 .social {
   margin: auto;
   width: fit-content;
@@ -100,6 +143,7 @@ main {
   width: 960px;
   margin: auto;
 }
+
 .choose {
   text-align: center;
   padding: 20px;
@@ -120,7 +164,6 @@ main li {
 }
 
 #selectioncontainer {
-  /* margin-left: 0px; */
   margin-left: auto;
   padding-bottom: 25px;
 }
@@ -128,13 +171,10 @@ main li {
 #headercontainer {
   display: block;
 }
+
 main p {
   font-size: 1.25em;
   padding-bottom: 20px;
-}
-
-#formcontainer {
-  
 }
 
 #eventcontainer {
@@ -144,35 +184,89 @@ main p {
   padding-bottom: 20px;
   text-align: center;
   /* border: 1px solid black; */
-  line-height: 40px;
+  line-height: 50px;
+  font-size: 1em;
+  color:rgb(3, 34, 68);
 }
 
 #eventcontainer input {
-  font-size: larger;
+  font-size: 0.90em;
 }
 
 #eventcontainer button {
-  font-size: larger;
+  font-size: 0.90em;
+  color: rgb(105, 190, 40);
+  background-color:rgb(3, 34, 68);
+}
+
+#eventcontainer fieldset {
+  border: 1px solid rgb(3, 34, 68);
+}
+/* 
+#eventcontainer:mouseover button {
+  color:rgb(3, 34, 68);
+  background-color: rgb(105, 190, 40);
+} */
+
+#postcardform fieldset {
+  border: 1px solid rgb(3, 34, 68);
+  text-align: center;
+  font-size: 0.90em;
+  line-height: 40px;
+  padding-bottom: 10px;
+  color:rgb(3, 34, 68);
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+#postcardform input {
+  font-size: 0.90em;
+}
+
+#postcardform button {
+  font-size: 0.80em;
+  color: rgb(105, 190, 40);
+  background-color:rgb(3, 34, 68);
 }
 
 #description {
-  margin-left: 75px;
-  margin-right: 75px;
+  /* margin-left: 75px;
+  margin-right: 75px; */
   padding-top: 20px;
   padding-bottom: 20px;
+  line-height: 35px;
+}
+
+#description p {
+  font-size: 0.9em;
+  color: rgb(3, 34, 68);
+  text-align: center;
+}
+
+#travelcontainer {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 #travelcontainer img {
   padding: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 fieldset label {
   display: block;
 }
+
 footer {
   margin-top: 25px;
   text-align: center;
   background-color: rgb(210, 212, 214);
+  padding: 10px;
+  color:rgb(3, 34, 68);
+  font-size: 16px;
 }
 
 /* About us */
@@ -249,12 +343,17 @@ h2 {
 }
 .team-container {
   padding: 0 16px;
-  height: 350px;
+  height: 365px;
 }
 
 .img-wrap {
   position: relative;
   margin: auto;
+}
+.mouseover {
+  font-size: .8em;
+  color: rgb(3,34, 68);
+  text-align: center;
 }
 
 .img-text {
@@ -264,9 +363,12 @@ h2 {
   left: 0;
   right: 0;
   background: rgba(105, 190, 40, 0.9);
+  background-size: 365px;
   color: rgb(3, 34, 68);
   visibility: hidden;
-  transition: opacity .1s, visibility .1s;
+  /* transition: opacity .1s, visibility .1s; */
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
 }
 
 .img-wrap:hover .img-text {
