@@ -3,6 +3,7 @@
 var pickedPlace = [];
 var maxScenes = 5;
 var actualScenes = 0;
+var destinationsLeft = 5;
 var userName = '';
 var allDestinations = [];
 var remainingPlaces = []; //This array is used to populate the thumnails of remaining choices
@@ -64,11 +65,11 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   allEncounters.push(this);
 }
 
-new Adventure('Space Needle', 'waterfront.png', 'The Seattle Space Needle is an observation tower which was built in the city of Seattle, Washington, in 1962. The tower was built in honor of the 1962 World’s Fair. It hosted in excess of 2.3 million visitors over the duration of the fair. Nowadays, it receives more than a million visitors annually, and is the most popular tourist attraction in the Northwest. One of the most notable and most famous Space Needle facts concerns its impressive height. The tower is 605 ft tall, took 400 days to build, and at the time it was built it was the tallest structure west of the Mississippi River.', 'Views from 605ft up!', 'The Space Needle is 605ft tall and offers a great view of the city!');
-new Adventure('Great Wheel', 'waterfront.png', 'Seattle was the third city in North America to offer a wheel of this design, it is currently the tallest ferris wheel on the west coast standing at an incredible 175 ft.  The Great Wheel has 42 enclosed gondolas, including a “VIP” gondola equipped with leather seats, all fabricated in Germany. A ride on the wheel costs $13 and takes about 15 minutes, allowing three revolutions complete with views of the city and Puget Sound.', 'Beautiful views of the waterfront!', 'The Great Wheel goes up 175ft, includes three revolutions with beautiful city views per ride!');
-new Adventure('Pike Place', 'waterfront.png', 'First opened on August 17, 1907, this market is now considered the oldest continuously-running public farmer’s market in the country. It serves as a place of business for many small farmers, craftspeople and merchants. Pike Place Market is Seattle\'s most popular tourist destination and the 33rd most visited tourist attraction in the world, with more than 10 million annual visitors.', 'Most popular Seattle attraction!', 'Attracts 10 million visitors per year.');
-new Adventure('Gum Wall', 'waterfront.png', 'Not too far from Pike Place Market, the Seattle Gum Wall is covered in thousands of pieces of chewing gum that have been placed on the side of Post Alley\'s Market Theater. It\'s been gathering gum for over 20 years, since the early 1990s when people waiting for shows at nearby Unexpected Productions would stick gum to the wall and coins to the gum to pass the time. About 50 feet long, it was fully cleared off for the first time in November 2015. Yes, it\'s just a wall covered in sticky, gooey, chewed gum, but it\'s the history and sheer weirdness that draws visitors.', 'Fifty feet of gum!', 'Likely one of the most unique visits!');
-new Adventure('Pacific Science Center', 'waterfront.png', 'In 1962 the Seattle World\'s Fair made headlines and millions came to explore the wonders of science at the United States Science Pavilion – known today as Seattle\'s Pacific Science Center. When planning for the Seattle World\'s Fair, the authorization law had required the buildings to be used for governmental purposes once the fair concluded. The U.S. Science Pavilion was intended to double as a warehouse for the General Services administration, and later be torn down. Today Pacific Science Center is composed of eight buildings, including two IMAX theaters (one of only a few places in the world with more than one IMAX theater), one of the world\'s largest laser dome theaters, a tropical butterfly house, a planetarium, and hundreds of hands-on science exhibits. In addition to a number of permanent exhibits the Center also hosts a variety of traveling and temporary exhibits.', 'Home to two IMAX theaters!', 'Interesting and diverse traveling exhibits, always worth a stop.');
+new Adventure('Space Needle', 'spaceneedle.jpg', 'The Seattle Space Needle is an observation tower which was built in the city of Seattle, Washington, in 1962. The tower was built in honor of the 1962 World’s Fair. It hosted in excess of 2.3 million visitors over the duration of the fair. Nowadays, it receives more than a million visitors annually, and is the most popular tourist attraction in the Northwest. One of the most notable and most famous Space Needle facts concerns its impressive height. The tower is 605 ft tall, took 400 days to build, and at the time it was built it was the tallest structure west of the Mississippi River.', 'Views from 605ft up!', 'The Space Needle is 605ft tall and offers a great view of the city!');
+new Adventure('Great Wheel', 'great-wheel.jpeg', 'Seattle was the third city in North America to offer a wheel of this design, it is currently the tallest ferris wheel on the west coast standing at an incredible 175 ft.  The Great Wheel has 42 enclosed gondolas, including a “VIP” gondola equipped with leather seats, all fabricated in Germany. A ride on the wheel costs $13 and takes about 15 minutes, allowing three revolutions complete with views of the city and Puget Sound.', 'Beautiful views of the waterfront!', 'The Great Wheel goes up 175ft, includes three revolutions with beautiful city views per ride!');
+new Adventure('Pike Place', 'pikeplace.jpg', 'First opened on August 17, 1907, this market is now considered the oldest continuously-running public farmer’s market in the country. It serves as a place of business for many small farmers, craftspeople and merchants. Pike Place Market is Seattle\'s most popular tourist destination and the 33rd most visited tourist attraction in the world, with more than 10 million annual visitors.', 'Most popular Seattle attraction!', 'Attracts 10 million visitors per year.');
+new Adventure('Gum Wall', 'gumwall.jpg', 'Not too far from Pike Place Market, the Seattle Gum Wall is covered in thousands of pieces of chewing gum that have been placed on the side of Post Alley\'s Market Theater. It\'s been gathering gum for over 20 years, since the early 1990s when people waiting for shows at nearby Unexpected Productions would stick gum to the wall and coins to the gum to pass the time. About 50 feet long, it was fully cleared off for the first time in November 2015. Yes, it\'s just a wall covered in sticky, gooey, chewed gum, but it\'s the history and sheer weirdness that draws visitors.', 'Fifty feet of gum!', 'Likely one of the most unique visits!');
+new Adventure('Pacific Science Center', 'pacscicenter.jpg', 'In 1962 the Seattle World\'s Fair made headlines and millions came to explore the wonders of science at the United States Science Pavilion – known today as Seattle\'s Pacific Science Center. When planning for the Seattle World\'s Fair, the authorization law had required the buildings to be used for governmental purposes once the fair concluded. The U.S. Science Pavilion was intended to double as a warehouse for the General Services administration, and later be torn down. Today Pacific Science Center is composed of eight buildings, including two IMAX theaters (one of only a few places in the world with more than one IMAX theater), one of the world\'s largest laser dome theaters, a tropical butterfly house, a planetarium, and hundreds of hands-on science exhibits. In addition to a number of permanent exhibits the Center also hosts a variety of traveling and temporary exhibits.', 'Home to two IMAX theaters!', 'Interesting and diverse traveling exhibits, always worth a stop.');
 new Adventure('Museum of Pop Culture', 'mopop.jpg', 'The museum was formerly known as Experience Music Project, Science Fiction Museum and Hall of Fame (EMP|SFM) and later EMP Museum until November 2016, has initiated many public programs. These include "Sound Off!", an annual 21-and-under battle-of-the-bands that supports the all-ages scene; and "Pop Conference", an annual gathering of academics, critics, musicians, and music buffs. Exhibits covering pop culture, from the art of fantasy, horror cinema, and video games to science fiction literature and costumes from screen and stage. The world\'s largest collection of artifacts, hand-written lyrics, personal instruments, and original photographs celebrating the music and history of Seattle musician Jimi Hendrix and the band Nirvana.', 'Largest collection of Jimi Hendrix memorabilia.', 'MoPOP offers an amazing collection unlike anywhere else in the world!');
 new Adventure('Museum of Flight', 'flight.jpg', 'Established in 1965 and fully accredited by the American Alliance of Museums as the largest private air and space museum in the world. Hosts the world\'s largest K-12 educational programs and attracts over 500,000 visitors every year. The museum\'s education programs grew significantly with the building of a Challenger Learning Center in 1992. This interactive exhibit allows students to experience a Space Shuttle mission, which includes a mock-up NASA mission control, and experiments from all areas of space research.', 'Largest private air and space museum.', 'World renowed air and space museum!');
 new Adventure('Kubota Garden', 'kubota.jpg', 'Kubota Garden is a 20-acre (81,000 m²) Japanese garden in the Rainier Beach area. Major features of the Kubota Garden include the Kubota Terrace, the Bamboo Grove, the Necklace of Ponds, the Mountainside, and the Tom Kubota Stroll Garden. Fujitaro Kubota emigrated from Japan in 1907 and was a self-taught gardener. In 1923, he started the Kubota Gardening Company. The core of Kubota Garden is a Historical Landmark in the City of Seattle. There is more than 400 tons of stone in the 20 acres of land that makes up Kubota Garden.', 'Twenty beautiful acres to enjoy!', 'Wonderful and tranquil escape from the city!');
@@ -204,8 +205,6 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
   if (actualScenes === maxScenes) {    // selection ends after 5 are chosen; users is presented with postcard form 
     var clickedDestination = event.currentTarget.id;
     var popIndex = null;
-    // actualScenes++;
-    // console.log(actualScenes);
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
@@ -213,44 +212,62 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
-    // console.log(chosenPlaces);
-    // console.log(actualScenes);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
+
     setTimeout(postcardInput, 5000);
+
     // postcardInput();
   }
 
-  else if (actualScenes <= maxScenes) {    // selection ends after 5 are chosen; users is presented with postcard form 
+  else if (actualScenes <= maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form 
     clickedDestination = event.currentTarget.id;
     popIndex = null;
     // actualScenes++;
-    console.log(clickedDestination);
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
-        console.log(i);
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace);
-    // console.log(chosenPlaces);
-    // console.log(actualScenes);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
   } else {
-    postcardInput();
+//pauseOnLast();    this is a good idea if i can load it from the first one without doubling. set a counter to iterate from first one..?
+    //    postcardInput();
   }
 }
 
+// function pauseOnLast(){
+//   var continueButton = document.createElement('a');
+//   continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
+//   continueButton.title = 'Click to Continue';
+//   var button = document.createTextNode('Next Page');
+//   continueButton.appendChild(button);
+//   eventContainer.appendChild(continueButton);
+//   //document.removeEventListener('click', clickBigImage); // prevents accidentally clicking away
+//   continueButton.addEventListener('click', postcardInput);
+
+// }
+
 function showNextScene() {
-  eventContainer.innerHTML = '';
+  destinationsLeft = maxScenes - actualScenes; // count down for sake of displaying how many are left
+  if (destinationsLeft === 0) {
+    eventContainer.innerHTML = '';
+  } else if (destinationsLeft === 1) {
+    var remainingMessage = 'You have ' + destinationsLeft + ' choice remaining. Make it count!';
+    eventContainer.innerHTML = remainingMessage;
+  } else {
+    var remainingMessage = 'You have ' + destinationsLeft + ' choices remaining.';
+    eventContainer.innerHTML = remainingMessage;
+  }
   renderElement('h2', headerContainer, pickedPlace[0], 'name');
   renderElement('img', imageContainer, pickedPlace[0], 'image');
   renderElement('p', descriptionContainer, pickedPlace[0], 'text');
@@ -363,6 +380,35 @@ function revealPostcard() {
   eventContainer.appendChild(viewAll);
 }
 
+//
+
+function showStoredPostcard() {
+  if (storedUserName && storedImages && storedPostcardMessage) {
+    var parsedUserName = JSON.parse(storedUserName);
+    var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
+    var parsedMessage = JSON.parse(storedPostcardMessage);
+  } else {
+    previousCardsToDisplay = 5;
+  }
+  // render the user's postcard
+}
+
+// var retrievedMessage = localStorage.getItem('postcardmessage');
+// var retrievedImages = localStorage.getItem('chosenimages');
+// storedPostcardMessage = JSON.parse(retrievedMessage);
+// storedPostcardImages = JSON.parse(retrievedImages);
+// var retrievedName = localStorage.getItem('username');
+// storedUserName = JSON.parse(retrievedName);
+// // renders the postcard. (plus a timestamp would be cool).
+// for (var i = 0; i < storedPostcardImages.length; i++) {
+//   var childElement = document.createElement('img');
+//   childElement.src = storedPostcardImages[i].thumbnail;
+//   eventContainer.appendChild(childElement);
+// }
+
+
+
+//
 if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
