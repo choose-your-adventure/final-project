@@ -28,6 +28,10 @@ body {
   color:rgb(3, 34, 68);
 }
 
+.logo {
+  width: 200px;
+}
+
 .text {
   font-size: 1em;
 }
@@ -88,6 +92,11 @@ body {
   width: 960px;
   margin: auto;
   padding-top: 10px;
+}
+
+#imagecontainer img.logo {
+  width: 400px;
+  margin-left: 28%;
 }
 
 .displayed {

@@ -98,7 +98,7 @@ new Adventure('Ballard Locks', 'ballardlocks.jpg', 'Construction of the Lake Was
 new Adventure('Seattle Aquarium', 'seattle-aquarium.jpg', 'Opened in 1977, the Seattle Aquarium was owned and operated by the City of Seattle Department of Parks and Recreation until 2010 when the nonprofit Seattle Aquarium Society assumed its management. In 2007, the Aquarium opened a major expansion adding 18,000 square feet of space including a 120,000 gallon exhibit. The Seattle Aquarium is the ninth largest aquarium in the U.S. by attendance, and has hosted over 27 million visitors and provided marine conservation education to over two million school children since its opening. The animal collection is housed within six major exhibits: Window on Washington, Life on the Edge, Pacific Coral Reef, Birds and Shores, Underwater Dome and Marine Mammals.', 'Great waterfront attraction!', 'Dozens of marine species, great stop for kids!');
 // new Adventure('Starbucks Reserve Roastery', 'starbucks.jpg', 'First opened in Seattle’s Capitol Hill neighborhood in December 2014, the Roastery is an immersive and dramatic expression of Starbucks passion for coffee. Located just nine blocks from the original Starbucks Pike Place store, this is a great stop for any coffee lover. Rare Starbucks reserve coffees are roasted on site and eight distinctive coffee-prep methods are on display to watch, taste, and learn. The entire coffee making process unfolds within the building, raw green coffee beans stored in massive silos are roasted, ground and brewed in an industrial assembly line that winds, dips and soars across the entire space.', 'The whole coffee process!', 'Beautiful location with a detailed look at coffee. Something for everyone to enjoy!');
 
-new Instructions('Welcome to our Adventure in Seattle Game!', 'logo.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', ''); 
+new Instructions('Welcome to our Adventure in Seattle Game!', 'logo.png', 'If you choose to play, you\'ll be led on a virtual adventure around the city to see whichever sights you\'d like to see. You\'ll learn fun facts and trivia about each location along the way. At the end, you\'ll have a memento from your trip based on where you decided to go!', '');
 new Instructions('How To Play', 'logo.png', 'Our virtual travel agency has arranged for you to tour a total of five destinations in Seattle. Click any of the image thumbnails at the top of the screen to visit that destination. \n If you would like to have a random chance encounter while touring each of your five destinations, simply click the big image and something fun will happen.');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write your custom message. What would you like your postcard to say?');
 new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below to see your postcard along with those from previous travellers.');
@@ -177,6 +177,10 @@ function beginAdventure() {
   // display starting image and give directions
   renderElement('h2', headerContainer, allInstructions[0], 'name');
   imageContainer.innerHTML = '';
+  var logoEl = document.createElement('img');
+  logoEl.src = allInstructions[0].image;
+  logoEl.setAttribute('class', 'logo');
+  imageContainer.appendChild(logoEl);
   var welcome = document.createElement('p');
   welcome.textContent = allInstructions[0]['extra'];
   //  welcome.setAttribute('class', 'star-wars crawl');
@@ -206,6 +210,7 @@ function enterGame() {
   imageContainer.innerHTML = '';
   var childElement = document.createElement('img');
   childElement.src = allInstructions[1].image;
+  childElement.setAttribute('class', 'logo');
   childElement.title = allInstructions[1].teaser;
   childElement.alt = allInstructions[1].name;
   imageContainer.appendChild(childElement);
@@ -323,7 +328,7 @@ function encounterButtonYesClick(event) { // --------- for YES clicks
   eventContainer.innerHTML = '';
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'yes');
   // you earned __
-  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!'; 
+  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!';
   imageContainer.innerHTML = '';
   var badgeEl = document.createElement('img');
   badgeEl.src = remainingEncounters[currentEncounterIndex].yesBadge;
@@ -448,7 +453,11 @@ if (storedUserName) {
   welcome.textContent = allInstructions[0]['extra'];
   //  welcome.setAttribute('class', 'star-wars crawl');
   imageContainer.appendChild(welcome);
-  renderElement('img', imageContainer, allInstructions[4], 'image');
+//  renderElement('img', imageContainer, allInstructions[4], 'image');
+  var logoEl = document.createElement('img');
+  logoEl.src = allInstructions[4].image;
+  logoEl.setAttribute('class', 'logo');
+  imageContainer.appendChild(logoEl);
   renderElement('p', descriptionContainer, allInstructions[4], 'text');
   eventContainer.addEventListener('submit', inputName);
 } else {
