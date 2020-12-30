@@ -10,12 +10,16 @@ var remainingPlaces = []; //This array is used to populate the thumnails of rema
 var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
-var storedUserName = localStorage.getItem('username');
+var storedUserName = JSON.parse(localStorage.getItem('username'));
 //var thumbIndex = 0;
 var thumbnailsToDisplay = 10;
-
+var storedPostcardImages = [];
+var storedPostcardMessage = '';
+var allAdventurers = JSON.parse(localStorage.getItem('adventurers')) || [];
+console.log('You are here' , allAdventurers);
 var date = new Date();
-var postmark = date.toLocaleDateString(); // get local date/time for message postmark
+var unstringifiedPostmark = date.toLocaleDateString();
+var postmark = JSON.stringify(unstringifiedPostmark); // get local date/time for message postmark
 localStorage.setItem('postmark', postmark);
 
 var allEncounters = [];
@@ -44,6 +48,14 @@ function Adventure(name, image, text, blurb, teaser) { // teaser on mouseover, b
   this.blurb = blurb;
   this.teaser = teaser;
   allDestinations.push(this);
+}
+
+function Adventurer(username, postmark, images, message) {
+  this.username = username;
+  this.postmark = postmark;
+  this.images = images;
+  this.message = message;
+  allAdventurers.unshift(this);
 }
 
 function Instructions(name, image, text, extra) {
@@ -169,7 +181,8 @@ function beginAdventure() {
 
 function inputName(event) {
   event.preventDefault();
-  userName = event.target.username.value;
+  userName = JSON.stringify(event.target.username.value);
+  storedUserName = event.target.username.value;
   localStorage.setItem('username', userName);
   eventContainer.innerHTML = '';
   enterGame();
@@ -211,16 +224,17 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
-    chosenPlaces.push(pickedPlace);
+    chosenPlaces.push(pickedPlace[0]);
     var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    storedPostcardImages = chosenPlaces;
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
-   // renderThumbnails();
-selectionContainer.innerHTML='';
-   showNextScene();
+    // renderThumbnails();
+    selectionContainer.innerHTML = '';
+    showNextScene();
 
     //    setTimeout(postcardInput, 5000);
-pauseOnLast();
+    pauseOnLast();
     // postcardInput();
   }
 
@@ -234,9 +248,10 @@ pauseOnLast();
       }
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
-    chosenPlaces.push(pickedPlace);
-    var stringifiedPlaces = JSON.stringify(chosenPlaces);
-    localStorage.setItem('chosenimages', stringifiedPlaces);
+    chosenPlaces.push(pickedPlace[0]);
+    console.log(pickedPlace);
+    // var stringifiedPlaces = JSON.stringify(chosenPlaces);
+    // localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
@@ -246,7 +261,7 @@ pauseOnLast();
   }
 }
 
-function pauseOnLast(){
+function pauseOnLast() {
   var continueButton = document.createElement('a');
   continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   continueButton.title = 'Click to Continue';
@@ -346,10 +361,15 @@ function postcardInput() {
 
 function postcardPull(event) {
   event.preventDefault();
-  postcardMessage = event.target.postcardinput.value;
+  postcardMessage = JSON.stringify(event.target.postcardinput.value);
+  storedPostcardMessage = event.target.postcardinput.value;
   localStorage.setItem('postcardmessage', postcardMessage);
   finalForm.setAttribute('style', 'display:none;');
-  revealPostcard();
+  new Adventurer(storedUserName, unstringifiedPostmark, storedPostcardImages, storedPostcardMessage);
+  localStorage.setItem('adventurers', JSON.stringify(allAdventurers));
+  console.log(allAdventurers);
+  //revealPostcard();
+  // showStoredPostcard();
 }
 
 function revealPostcard() {
@@ -384,32 +404,29 @@ function revealPostcard() {
 //
 
 function showStoredPostcard() {
-  if (storedUserName && storedImages && storedPostcardMessage) {
-    var parsedUserName = JSON.parse(storedUserName);
-    var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
-    var parsedMessage = JSON.parse(storedPostcardMessage);
-  } else {
-    previousCardsToDisplay = 5;
-  }
+  // if (storedUserName && storedImages && storedPostcardMessage) {
+  //   var parsedUserName = JSON.parse(storedUserName);
+  //   var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
+  //   var parsedMessage = JSON.parse(storedPostcardMessage);
+  // } else {
+  //   previousCardsToDisplay = 5;
+  // }
   // render the user's postcard
+  var retrievedMessage = localStorage.getItem('postcardmessage');
+  var retrievedImages = localStorage.getItem('chosenimages');
+  console.log('we are here', retrievedMessage);
+  storedPostcardMessage = JSON.parse(retrievedMessage);///--- not defined
+  storedPostcardImages = JSON.parse(retrievedImages);
+  var retrievedName = localStorage.getItem('username');
+  storedUserName = JSON.parse(retrievedName);
+  for (var i = 0; i < storedPostcardImages.length; i++) {
+    var childElement = document.createElement('img');
+    childElement.src = storedPostcardImages[i].thumbnail;
+    eventContainer.appendChild(childElement);
+  }
+
 }
 
-// var retrievedMessage = localStorage.getItem('postcardmessage');
-// var retrievedImages = localStorage.getItem('chosenimages');
-// storedPostcardMessage = JSON.parse(retrievedMessage);
-// storedPostcardImages = JSON.parse(retrievedImages);
-// var retrievedName = localStorage.getItem('username');
-// storedUserName = JSON.parse(retrievedName);
-// // renders the postcard. (plus a timestamp would be cool).
-// for (var i = 0; i < storedPostcardImages.length; i++) {
-//   var childElement = document.createElement('img');
-//   childElement.src = storedPostcardImages[i].thumbnail;
-//   eventContainer.appendChild(childElement);
-// }
-
-
-
-//
 if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
   // display starting image and give directions
