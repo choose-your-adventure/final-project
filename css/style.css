@@ -127,7 +127,9 @@ nav a {
   font-size: 20px;
   text-decoration: none;
   padding: 0 10px;
-  margin: 0 auto;
+  /* margin: auto; */
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 nav a:hover {
@@ -211,11 +213,38 @@ main p {
 #eventcontainer fieldset {
   border: 1px solid rgb(3, 34, 68);
 }
-/* 
-#eventcontainer:mouseover button {
+
+#eventcontainer button:hover {
   color:rgb(3, 34, 68);
   background-color: rgb(105, 190, 40);
-} */
+}
+
+#eventcontainer a {
+  font-size: 0.90em;
+  color: rgb(105, 190, 40);
+  background-color:rgb(3, 34, 68);
+}
+
+#eventcontainer a:hover {
+  color:rgb(3, 34, 68);
+  background-color: rgb(105, 190, 40);
+}
+
+button#createpostcard:hover {
+  color:rgb(3, 34, 68);
+  background-color: rgb(105, 190, 40);
+
+}
+.optionbutton {
+  font-size: 0.90em;
+  color: rgb(105, 190, 40);
+  background-color:rgb(3, 34, 68);
+}
+
+.optionbutton:hover {
+  color:rgb(3, 34, 68);
+  background-color: rgb(105, 190, 40);
+}
 
 #postcardform fieldset {
   border: 1px solid rgb(3, 34, 68);
@@ -371,6 +400,7 @@ h2 {
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 5px;
   background: rgba(105, 190, 40, 0.9);
   background-size: 365px;
   color: rgb(3, 34, 68);
@@ -411,59 +441,5 @@ h2 {
   .column {
     width: 100%;
     display: block;
-  }
-}
-
-/* Star-Wars Crawl */
-
-.star-wars {
-  width: 960px;
-  height: 540px;
-  background: rgb(165, 172, 175);
-  overflow: hidden;
-}
-/* .title {
-  color: rgb(3, 34, 68);
-  size: 1em;
-  font-weight: 600;
-  -webkit-text-stroke: 2px rgb(105, 190, 140);
-} */
-.star-wars {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  height: 480px;
-  color: rgb(3, 34, 68);
-  -webkit-text-stroke: 2px rgb(105, 190, 40);
-  font-family: 'Pathway Gothic One', sans-serif;
-  font-size: 500%;
-  font-weight: 600;
-  letter-spacing: 6px;
-  line-height: 150%;
-  perspective: 400px;
-  text-align: justify;
-}
-.crawl {
-  position: relative;
-  top: 99999px;
-  transform-origin: 50% 100%;
-  animation: crawl 60s linear;
-}
-.crawl > .title {
-  font-size: 90%;
-  text-align: center;
-}
-.crawl > .title h1 {
-  margin: 0 0 100px;
-  text-transform: uppercase;
-}
-@keyframes crawl {
-	0% {
-    top: -100px;
-    transform: rotateX(20deg)  translateZ(0);
-  }
-	100% { 
-    top: -6000px;
-    transform: rotateX(25deg) translateZ(-2500px);
   }
 }
