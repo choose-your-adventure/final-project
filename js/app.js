@@ -1,5 +1,6 @@
 'use strict';
 
+var badge;
 var pickedPlace = [];
 var maxScenes = 5;
 var actualScenes = 0;
@@ -16,7 +17,7 @@ var thumbnailsToDisplay = 10;
 var storedPostcardImages = [];
 var storedPostcardMessage = '';
 var allAdventurers = JSON.parse(localStorage.getItem('adventurers')) || [];
-console.log('You are here' , allAdventurers);
+console.log('You are here', allAdventurers);
 var date = new Date();
 var unstringifiedPostmark = date.toLocaleDateString();
 var postmark = JSON.stringify(unstringifiedPostmark); // get local date/time for message postmark
@@ -67,7 +68,7 @@ function Instructions(name, image, text, extra) {
 }
 
 // Positive, Neutral, Challenge Encounters, challenges 2 levels deep
-function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
+function Encounter(name, encounter, text, yes, no, yesAttr, noAttr, yesBadge, noBadge) {
   this.name = name;
   this.encounter = `img/${encounter}`; // image
   this.text = text; // description leading to choice
@@ -75,6 +76,8 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr) {
   this.no = no;
   this.yesAttr = yesAttr; // badge if yes/no
   this.noAttr = noAttr;
+  this.yesBadge = `img/${yesBadge}`;
+  this.noBadge = `img/${noBadge}`;
   allEncounters.push(this);
 }
 
@@ -102,11 +105,11 @@ new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your ve
 new Instructions('Welcome back!', 'logo.png', 'If you\'d like to play again, please enter your desired username for this journey.');
 
 // should something like this be stored in separate JSON file instead?
-new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light');
-new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly');
-new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate');
-new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', '"Hey, thanks!" you say, taking the man\'s extra jersey. He smiles and heads off. His generosity leaves you feeling optimistic about what might come next.', '"Oh, no thanks," you reply, turning him down. "I\'m more of a soccer/tennis/bird-watcher anyway. I appreciate the offer, though."', 'Sports Fan', 'Bird Lover');
-new Encounter('Discovery', 'wallet.jpg', 'While out and about, you come across a wallet. Checking inside, you find $40, but no cards or other forms of identification. There is a Lost and Found box not too far away. Do you return the $40 along with the wallet?', 'You decide that the Golden Rule applies here. If it had been your wallet, you would appreciate any chance of recovering its contents.', 'Deciding that it would be unlikely for a wallet without identification to be found by its proper owner, you pocket the cash.', 'Honest Abe', 'Finder\'s Keepers');
+new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light', 'badge-fish.png', 'badge-travel.png');
+new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly', 'badge-positive2.png', 'badge-neg2.png');
+new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate', 'badge-positive.png', 'badge-neg2.png');
+new Encounter('Natural Accident', 'birds-event.jpg', 'While sightseeing, a bird overhead happened to poop on your shoulder. Seeing this, a fellow sightseer standing next to you offers you a spare Seahawks jersey. "It\'s an extra," he says. "I was overzealous and bought more than I\'ll ever need. It\'s yours if you\'d like to have it."\n Do you take the jersey?', '"Hey, thanks!" you say, taking the man\'s extra jersey. He smiles and heads off. His generosity leaves you feeling optimistic about what might come next.', '"Oh, no thanks," you reply, turning him down. "I\'m more of a soccer/tennis/bird-watcher anyway. I appreciate the offer, though."', 'Sports Fan', 'Bird Lover', 'badge-sports.png', 'badge-bird.png');
+new Encounter('Discovery', 'wallet.jpg', 'While out and about, you come across a wallet. Checking inside, you find $40, but no cards or other forms of identification. There is a Lost and Found box not too far away. Do you return the $40 along with the wallet?', 'You decide that the Golden Rule applies here. If it had been your wallet, you would appreciate any chance of recovering its contents.', 'Deciding that it would be unlikely for a wallet without identification to be found by its proper owner, you pocket the cash.', 'Honest Abe', 'Finder\'s Keepers', 'badge-honest.png', 'badge-finders.png');
 
 function renderElement(newElement, parentElement, obj, content, index) {
   if (newElement === 'img' && content === 'thumbnail') { // for thumbnails
@@ -146,16 +149,19 @@ function renderElement(newElement, parentElement, obj, content, index) {
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.image;
-    childElement.title = obj.teaser;
-    childElement.alt = obj.name;
+    // childElement.title = obj.teaser;
+    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
-    childElement.addEventListener('click', clickBigImage);
+    // conditional -- if count ===0, don't show this:
+    if (destinationsLeft > 0) {
+      childElement.addEventListener('click', clickBigImage);
+    }
   } else if (newElement === 'img' && content === 'encounter') {// for encounter images
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.encounter;
-    childElement.title = obj.teaser;
-    childElement.alt = obj.name;
+    // childElement.title = obj.teaser;
+    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
 
   } else {
@@ -317,7 +323,11 @@ function encounterButtonYesClick(event) { // --------- for YES clicks
   eventContainer.innerHTML = '';
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'yes');
   // you earned __
-  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!';
+  eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].yesAttr + ' badge!'; 
+  imageContainer.innerHTML = '';
+  var badgeEl = document.createElement('img');
+  badgeEl.src = remainingEncounters[currentEncounterIndex].yesBadge;
+  imageContainer.appendChild(badgeEl);
   encounterBadges.push(currentEncounterIndex.yesAttr);
   encounterFinished();
 }
@@ -328,6 +338,10 @@ function encounterButtonNoClick(event) { // -------- for NO clicks
   renderElement('p', descriptionContainer, remainingEncounters[currentEncounterIndex], 'no');
   encounterBadges.push(currentEncounterIndex.noAttr);
   eventContainer.innerHTML = 'You earned the ' + remainingEncounters[currentEncounterIndex].noAttr + ' badge!';
+  imageContainer.innerHTML = '';
+  var badgeEl = document.createElement('img');
+  badgeEl.src = remainingEncounters[currentEncounterIndex].noBadge;
+  imageContainer.appendChild(badgeEl);
   encounterFinished();
 }
 
@@ -340,9 +354,9 @@ function encounterFinished() {
   renderThumbnails();
 }
 
-function tallyEncounterBadges() { // -------- at end, to store and render with postcard.
-  console.log(encounterBadges);
-}
+// function tallyEncounterBadges() { // -------- at end, to store and render with postcard.
+//   console.log(encounterBadges);
+// }
 
 function postcardInput() {
   selectionContainer.innerHTML = '';
@@ -369,17 +383,17 @@ function postcardPull(event) {
 
 function revealPostcard() {
   eventContainer.innerHTML = '';
-  imageContainer.innerHTML = '';
-  descriptionContainer.innerHTML = '';
+  renderElement('img', imageContainer, allInstructions[2], 'image');
+  descriptionContainer.innerHTML = 'On the next screen you will see your custom postcard. . .';
   travelledToContainer.innerHTML = '';
-  var viewAll = document.createElement('a');
+  var viewAll = document.createElement('a'); //--this is the one to potentially combine with the finalForm button------
   viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
   viewAll.title = 'Click Here!';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
-// displays postcard elements from array, not localstorage----
+  // displays postcard elements from array, not localstorage----
   // renderElement('h2', headerContainer, allInstructions[3], 'name');
   // renderElement('p', descriptionContainer, allInstructions[3], 'text');
   // var cardTextEl = document.createElement('p');
