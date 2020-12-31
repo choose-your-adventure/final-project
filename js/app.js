@@ -12,12 +12,10 @@ var chosenPlaces = [];
 var allInstructions = [];
 var postcardMessage = '';
 var storedUserName = localStorage.getItem('username'); ///--------trying it this way to avoid new error when somethign is in localstor----
-// var storedUserName = JSON.parse(localStorage.getItem('username'));
 var thumbnailsToDisplay = 10;
 var storedPostcardImages = [];
 var storedPostcardMessage = '';
 var allAdventurers = JSON.parse(localStorage.getItem('adventurers')) || [];
-console.log('You are here', allAdventurers);
 var date = new Date();
 var unstringifiedPostmark = date.toLocaleDateString();
 var postmark = JSON.stringify(unstringifiedPostmark); // get local date/time for message postmark
@@ -81,6 +79,7 @@ function Encounter(name, encounter, text, yes, no, yesAttr, noAttr, yesBadge, no
   allEncounters.push(this);
 }
 
+//instantiations of adventure options
 new Adventure('Space Needle', 'spaceneedle.jpg', 'The Seattle Space Needle is an observation tower which was built in the city of Seattle, Washington, in 1962. The tower was built in honor of the 1962 World’s Fair. It hosted in excess of 2.3 million visitors over the duration of the fair. Nowadays, it receives more than a million visitors annually, and is the most popular tourist attraction in the Northwest. One of the most notable and most famous Space Needle facts concerns its impressive height. The tower is 605 ft tall, took 400 days to build, and at the time it was built it was the tallest structure west of the Mississippi River.', 'Space Needle: Views from 605ft up!', 'The Space Needle is 605ft tall and offers a great view of the city!');
 new Adventure('Great Wheel', 'great-wheel.jpeg', 'Seattle was the third city in North America to offer a wheel of this design, it is currently the tallest ferris wheel on the west coast standing at an incredible 175 ft.  The Great Wheel has 42 enclosed gondolas, including a “VIP” gondola equipped with leather seats, all fabricated in Germany. A ride on the wheel costs $13 and takes about 15 minutes, allowing three revolutions complete with views of the city and Puget Sound.', 'Great Wheel: Beautiful views of the waterfront!', 'The Great Wheel goes up 175ft, includes three revolutions with beautiful city views per ride!');
 new Adventure('Pike Place', 'pikeplace.jpg', 'First opened on August 17, 1907, this market is now considered the oldest continuously-running public farmer’s market in the country. It serves as a place of business for many small farmers, craftspeople and merchants. Pike Place Market is Seattle\'s most popular tourist destination and the 33rd most visited tourist attraction in the world, with more than 10 million annual visitors.', 'Pike Place Market: Most popular Seattle attraction!', 'Attracts 10 million visitors per year.');
@@ -96,15 +95,15 @@ new Adventure('Golden Gardens', 'golden-gardens.jpg', 'Popular sandy beach attra
 new Adventure('Seattle Art Museum', 'artmuseum.jpg', 'Located in the heart of downtown, Seattle Art Museum (SAM) has numerous collections, temporary installations and special exhibitions from around the world. Collections include Asian, African, Ancient American, Ancient Mediterranean, Islamic, European, Oceanic, Asian, American, modern and contemporary art, and decorative arts and design. Additional affiliated attractions include the Asian Art Museum which resides in the SAM landmark 1933 Art Deco building on Capitol Hill, as well as the Olympic Sculpture Park, an award winning nine-acre outdoor park on the waterfront that is free and open to the public to enjoy.', 'Seattle Art Museum: Beautiful museum in downtown.', 'Amazing exhibits from around the world.');
 new Adventure('Ballard Locks', 'ballardlocks.jpg', 'Construction of the Lake Washington Ship Canal and Hiram M. Chittenden Locks was completed in 1917 by the U.S Army Corps of Engineers. Created for three main purposes: maintaining the water level of fresh water in Lake Washington and Lake Union at 20-22 feet above sea level, preventing the mixing of sea water with fresh water, and to move boats from the water level of the lakes to the water level of Puget Sound and vice versa. The Locks connect the waters of Lake Washington, Lake Union, and Salmon Bay to the tidal waters of Puget Sound, and allow recreational and commercial vessels to travel to the docks and warehouses of the harbor in Seattle. The complex includes two locks, one small and one large, as well as a spillway with six gates to assist in water-level control. A fish ladder is integrated into the locks for migration of fish as well.', 'Ballard Locks: Boats, water, and fish!', 'Interesting destination and amazing engineering!');
 new Adventure('Seattle Aquarium', 'seattle-aquarium.jpg', 'Opened in 1977, the Seattle Aquarium was owned and operated by the City of Seattle Department of Parks and Recreation until 2010 when the nonprofit Seattle Aquarium Society assumed its management. In 2007, the Aquarium opened a major expansion adding 18,000 square feet of space including a 120,000 gallon exhibit. The Seattle Aquarium is the ninth largest aquarium in the U.S. by attendance, and has hosted over 27 million visitors and provided marine conservation education to over two million school children since its opening. The animal collection is housed within six major exhibits: Window on Washington, Life on the Edge, Pacific Coral Reef, Birds and Shores, Underwater Dome and Marine Mammals.', 'Seattle Aquarium: Great waterfront attraction!', 'Dozens of marine species, great stop for kids!');
-// new Adventure('Starbucks Reserve Roastery', 'starbucks.jpg', 'First opened in Seattle’s Capitol Hill neighborhood in December 2014, the Roastery is an immersive and dramatic expression of Starbucks passion for coffee. Located just nine blocks from the original Starbucks Pike Place store, this is a great stop for any coffee lover. Rare Starbucks reserve coffees are roasted on site and eight distinctive coffee-prep methods are on display to watch, taste, and learn. The entire coffee making process unfolds within the building, raw green coffee beans stored in massive silos are roasted, ground and brewed in an industrial assembly line that winds, dips and soars across the entire space.', 'The whole coffee process!', 'Beautiful location with a detailed look at coffee. Something for everyone to enjoy!');
 
+//instantiations of instructions text for pages
 new Instructions('Welcome to our Adventure in Seattle Game!', 'logo.png', 'Our virtual travel agency has arranged for you to take a virtual tour of five destinations in Seattle. You\'ll learn fun facts and trivia about each location. At the end, you\'ll have a custom virtual postcard from your travels that you can show to someone else!', '');
 new Instructions('How To Play', 'logo.png', 'Click any of the thumbnails to visit that destination. \n If you would like to have a random chance encounter while touring each destination, simply click the big image and something fun will happen.');
 new Instructions('Your Custom Postcard Awaits. . .', 'prepostcard.jpg', 'Whew! -- you have completed your journey of Seattle. Each step of your journey has been commemorated by a photo on your custom postcard. Now it\'s time to write a short message. What would you like your postcard to say?');
 new Instructions('Here is your custom postcard!', 'starting-image.png', 'Your very own virtual memento showcasing a few highlights from your trip. Click the button below to see your postcard along with those from previous travellers.');
 new Instructions('Welcome back!', 'logo.png', 'If you\'d like to play again, please enter your desired username for this journey.');
 
-// should something like this be stored in separate JSON file instead?
+//instantiations of encounter events upon click on the large destination image
 new Encounter('Street Vendor', 'street-vendor.jpg', 'While you are there, you meet a street vendor selling freshly smoked salmon that smells incredible. He offers you a free sample and its taste is unrivaled. Would you like to take some home with you?', 'The opportunity is too good to pass up. You fork over the money and happily receive your smoked salmon. They\'re going to love it back at home.', 'You decide against the idea of carrying a bag of fish for the rest of your day and continue along your journey.', 'Golden Fish', 'Travel Light', 'badge-fish.png', 'badge-travel.png');
 new Encounter('Satisfaction Guaranteed', 'travel.jpg', 'As you leave, you pass by a travel agent who flags you down. "Excuse me," she says. "I couldn\'t help but notice that you are from out of town and I just wanted to ask you whether you liked this spot on your Seattle trip. Some people love it, though it\'s not for everyone. Did you enjoy it?', '"Of course I love it!," you answer. "It would be crazy not to find it charming."', 'I\'m afraid I am one of those people," you admit. "I like it, but I guess it\'s just not for me.', 'Positive Pat', 'Negative Nelly', 'badge-positive2.png', 'badge-neg2.png');
 new Encounter('Changing Weather', 'fog.jpg', 'During your time here, a heavy fog rolled in, obscuring your view. Luckily, you were able to capture a great photo beforehand. Are you happy with this image?', 'You are happy with the image and look forward to taking more at your next destination when the weather clears.', 'You shake your head, wishing you\'d had more of a chance to get just the right shot.', 'Positive Pete', 'Negative Nate', 'badge-positive.png', 'badge-neg2.png');
@@ -149,8 +148,6 @@ function renderElement(newElement, parentElement, obj, content, index) {
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.image;
-    // childElement.title = obj.teaser;
-    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
     // conditional -- if count ===0, don't show this:
     if (destinationsLeft > 0) {
@@ -160,8 +157,6 @@ function renderElement(newElement, parentElement, obj, content, index) {
     parentElement.innerHTML = '';
     var childElement = document.createElement(newElement);
     childElement.src = obj.encounter;
-    // childElement.title = obj.teaser;
-    // childElement.alt = obj.name;
     parentElement.appendChild(childElement);
 
   } else {
@@ -239,16 +234,14 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     storedPostcardImages = chosenPlaces;
     localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
-    // renderThumbnails();
     selectionContainer.innerHTML = '';
     showNextScene();
     pauseOnLast();
   }
 
-  else if (actualScenes < maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form 
+  else if (actualScenes < maxScenes) {    // selection ends after 5 are chosen; user is presented with postcard form
     clickedDestination = event.currentTarget.id;
     popIndex = null;
-    // actualScenes++;
     for (var i = 0; i < remainingPlaces.length; i++) {
       if (clickedDestination === remainingPlaces[i].name) {
         popIndex = i;
@@ -256,26 +249,19 @@ function thumbClick(event) {   // user has clicked thumbnail to choose next dest
     }
     pickedPlace = remainingPlaces.splice(popIndex, 1);
     chosenPlaces.push(pickedPlace[0]);
-    console.log(pickedPlace);
-    // var stringifiedPlaces = JSON.stringify(chosenPlaces);
-    // localStorage.setItem('chosenimages', stringifiedPlaces);
     renderElement('img', travelledToContainer, pickedPlace[0], 'thumbnail');
     renderThumbnails();
     showNextScene();
-  } else {
   }
 }
 
 function pauseOnLast() {
   var continueButton = document.createElement('a');
-  // continueButton.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   continueButton.title = 'Click to Continue';
   var button = document.createTextNode('Next: Your Personal Message');
   continueButton.appendChild(button);
   eventContainer.appendChild(continueButton);
-  //document.removeEventListener('click', clickBigImage); // prevents accidentally clicking away
   continueButton.addEventListener('click', postcardInput);
-
 }
 
 function showNextScene() {
@@ -307,8 +293,6 @@ function clickBigImage(event) {  // flip image to trigger Encounter
   eventContainer.innerHTML = '';
   var optionYes = document.createElement('a');
   var optionNo = document.createElement('a');
-  // optionNo.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
-  // optionYes.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   optionNo.setAttribute('class', 'optionbutton')
   optionYes.setAttribute('class', 'optionbutton')
   optionYes.title = 'If Yes';
@@ -384,9 +368,7 @@ function postcardPull(event) {
   finalForm.setAttribute('style', 'display:none;');
   new Adventurer(storedUserName, unstringifiedPostmark, storedPostcardImages, storedPostcardMessage);
   localStorage.setItem('adventurers', JSON.stringify(allAdventurers));
-  console.log(allAdventurers);
   revealPostcard();
-  // showStoredPostcard();
 }
 
 function revealPostcard() {
@@ -395,57 +377,13 @@ function revealPostcard() {
   descriptionContainer.innerHTML = 'On the next screen you will see your custom postcard. . .';
   travelledToContainer.innerHTML = '';
   var viewAll = document.createElement('a'); //--this is the one to potentially combine with the finalForm button------
-  // viewAll.setAttribute('style', 'text-decoration: none; color: black; padding: 5px; margin: 10px; background-color:#ccc; border: 1px solid black;');
   viewAll.setAttribute('class', 'optionbutton');
   var resultsPage = document.createTextNode('View All Postcards');
   viewAll.appendChild(resultsPage);
   viewAll.title = 'Click Here!';
   viewAll.href = 'postcard.html';
   eventContainer.appendChild(viewAll);
-  // displays postcard elements from array, not localstorage----
-  // renderElement('h2', headerContainer, allInstructions[3], 'name');
-  // renderElement('p', descriptionContainer, allInstructions[3], 'text');
-  // var cardTextEl = document.createElement('p');
-  // cardTextEl.textContent = postcardMessage + ' ' + postmark;
-  // cardTextEl.setAttribute('id', 'postcardmessage');
-  // imageContainer.appendChild(cardTextEl);
-  // var cardFromEl = document.createElement('p');
-  // cardFromEl.textContent = '--- ' + userName;
-  // cardFromEl.setAttribute('id', 'postcardusername'); // for CSS styling
-  // imageContainer.appendChild(cardFromEl);
-  // // render badges from array  called encounterBadges
-  // for (var i = 0; i < chosenPlaces.length; i++) {
-  //   var childElement = document.createElement('img');
-  //   childElement.src = chosenPlaces[i][0].thumbnail;
-  //   imageContainer.appendChild(childElement);
-  // }
-
 }
-
-//
-
-// function showStoredPostcard() {
-//   // if (storedUserName && storedImages && storedPostcardMessage) {
-//   //   var parsedUserName = JSON.parse(storedUserName);
-//   //   var parsedImages = JSON.parse(storedImages); // this probably needs brackets or something
-//   //   var parsedMessage = JSON.parse(storedPostcardMessage);
-//   // } else {
-//   //   previousCardsToDisplay = 5;
-//   // }
-//   // render the user's postcard
-//   var retrievedMessage = localStorage.getItem('postcardmessage');
-//   var retrievedImages = localStorage.getItem('chosenimages');
-//   console.log('we are here', retrievedMessage);
-//   storedPostcardMessage = JSON.parse(retrievedMessage);///--- not defined
-//   storedPostcardImages = JSON.parse(retrievedImages);
-//   var retrievedName = localStorage.getItem('username');
-//   storedUserName = JSON.parse(retrievedName);
-//   for (var i = 0; i < storedPostcardImages.length; i++) {
-//     var childElement = document.createElement('img');
-//     childElement.src = storedPostcardImages[i].thumbnail;
-//     eventContainer.appendChild(childElement);
-//   }
-// }
 
 if (storedUserName) {
   finalForm.setAttribute('style', 'display:none;'); // hide final button
@@ -455,7 +393,6 @@ if (storedUserName) {
   var welcome = document.createElement('p');
   welcome.textContent = allInstructions[0]['extra'];
   imageContainer.appendChild(welcome);
-//  renderElement('img', imageContainer, allInstructions[4], 'image');
   var logoEl = document.createElement('img');
   logoEl.src = allInstructions[4].image;
   logoEl.setAttribute('class', 'logo');
